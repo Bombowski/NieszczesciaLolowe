@@ -12,21 +12,23 @@ import java.io.FileWriter;
  */
 public class BasicCheck {
 
-	public static final String HEADER = "Champion,lane,kda,win/lose,game length,afks";
+	public static final String HEADER = "Champion,lane,kda,win/lose,time,afks";
 	
 	public static void basicCheck(String line) throws Exception {
 		BufferedReader read = new BufferedReader(new FileReader(Writing.FILE));
+		BufferedWriter write = new BufferedWriter(new FileWriter(Writing.FILE,true));
 		
 		String first = read.readLine();
 		read.close();
 		
 		if (first == null) {
-			BufferedWriter write = new BufferedWriter(new FileWriter(Writing.FILE));
-			write.write(HEADER + '\n');
-			write.close();
+			BufferedWriter writes = new BufferedWriter(new FileWriter(Writing.FILE));
+			writes.write(HEADER);
+			writes.close();
 		}
-		else {
-			
-		}
+		
+		write.write('\n' + " , , , , ,0");
+		write.close();
+		
 	}
 }
