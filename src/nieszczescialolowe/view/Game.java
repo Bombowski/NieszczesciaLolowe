@@ -31,6 +31,10 @@ public class Game {
 				" ; time: " + time + " ; win/lose: " + winLose + " ; afks: " + afks + "]";
 	}
 	
+	public String csvToStrin() {
+		return kda + "," + champion + "," + lane + "," + time + "," + winLose + "," + afks;
+	}
+	
 	public String getKda() {
 		return kda;
 	}
