@@ -1,17 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package nieszczescialolowe.view;
 
+import java.awt.Dialog;
 import java.awt.event.ActionListener;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
@@ -23,12 +22,14 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.WindowConstants;
 
 /**
- *
  * @author Patryk
+ * 
+ * Klasa ktora generuje i wyswietla okno
  */
 public class Window extends JFrame {
     
-    private JButton btnAddChamp;
+	private static final long serialVersionUID = 1L;
+	private JButton btnAddChamp;
     private JButton btnAddGame;
     private JComboBox<String> cmbChamp;
     private JComboBox<String> cmbLine;
@@ -36,7 +37,7 @@ public class Window extends JFrame {
     private JLabel lblAfks;
     private JLabel lblChamp;
     private JLabel lblKda;
-    private JLabel lblLine;
+    private JLabel lblLane;
     private JLabel lblTime;
     private JLabel lblWL;
     private JPanel panelConsole;
@@ -50,18 +51,27 @@ public class Window extends JFrame {
     private JTextField txtKda;
     private JTextArea txtOutput;
     
-    public Window() {
+    
+    
+    public Window() {}
+    
+    public String getCsvPathStartWindow() {
+    	String path = setCustomFileSave();
         initComponents();
+        
+        return path;
     }
     
+    /**
+     * Generacja okna
+     */
     private void initComponents() {
-
         panelControl = new JPanel();
         lblKda = new JLabel();
         txtKda = new JTextField();
         lblChamp = new JLabel();
         cmbChamp = new JComboBox<>();
-        lblLine = new JLabel();
+        lblLane = new JLabel();
         cmbLine = new JComboBox<>();
         lblTime = new JLabel();
         spinHour = new JSpinner();
@@ -88,7 +98,7 @@ public class Window extends JFrame {
 
         lblChamp.setText("Champion");
 
-        lblLine.setText("Line");
+        lblLane.setText("Lane");
 
         cmbLine.setModel(new DefaultComboBoxModel<>(new String[] { "Top", "Mid", "Adc", "Sup", "Jun" }));
 
@@ -138,7 +148,7 @@ public class Window extends JFrame {
                             .addGroup(panelControlLayout.createSequentialGroup()
                                 .addGroup(panelControlLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                     .addComponent(lblTime)
-                                    .addComponent(lblLine))
+                                    .addComponent(lblLane))
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(panelControlLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                     .addGroup(panelControlLayout.createSequentialGroup()
@@ -182,7 +192,7 @@ public class Window extends JFrame {
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelControlLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbLine, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblLine))
+                    .addComponent(lblLane))
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addComponent(btnAddGame)
                 .addGap(18, 18, Short.MAX_VALUE))
@@ -239,8 +249,111 @@ public class Window extends JFrame {
         setVisible(true);
     }
 
+    /**
+     * @return Returnuje Game ze wszystkimi danymi ktore byly wprowadzone w oknie
+     */
+    public Game getGame() {
+    	Game game = new Game();
+    	game.setKda(txtKda.getText());
+    	game.setChampion((String) cmbChamp.getSelectedItem());
+    	game.setLane((String) cmbLine.getSelectedItem());
+    	game.setTime(spinHour.getValue() + ":" + spinMin.getValue() + ":" + spinSec.getValue());
+    	game.setWinLose((String) spinWL.getValue());
+    	game.setAfks((int) spinAfks.getValue());
+    	    	    	
+		return game;
+    }
+    
+    /**
+     * twozy popujace okno, zeby muc przejsc do nastepnego okna trzeba wybrac plik csv
+     * 
+     * @param frame JFrame
+     */
+    private String setCustomFileSave() {
+    	// tworze okno i pokazuje file chooser
+        JDialog jd = new JDialog(this, "Csv file", Dialog.ModalityType.APPLICATION_MODAL);
+        JFileChooser chooser = new JFileChooser();
+
+        // zdobywam path do pliku i sprawdzam czy jest poprawny
+        String path = askForCsvFile(jd, chooser);
+        while (path.equals("")) {
+        	// pokazuje error jesli nie jest poprawny
+            JOptionPane.showMessageDialog(jd, "Select a csv file please.", "Error", JOptionPane.ERROR_MESSAGE);
+            path = askForCsvFile(jd, chooser);
+        }
+
+        // zamykam okno
+        jd.dispose();
+        
+        return path;
+    }
+
+    /**
+     * Sprawdza czy wybrano plik z odpowiednim formatem, lub czy wybrano jaki kolwiek plik
+     * 
+     * @param jd JDialog popup okno
+     * @param chooser JFileChooser
+     * @return String
+     */
+    private String askForCsvFile(JDialog jd, JFileChooser chooser) {
+    	// otwieram dialog i czekam na odpowiedz
+        int returnVal = chooser.showOpenDialog(jd);
+
+        // jesli okno zostalo zamkniete/ zcancelowane zakanczam pogram
+        if (returnVal == JFileChooser.CANCEL_OPTION || chooser.getSelectedFile() == null) {
+            System.exit(1);
+        }
+        
+        // jesli nie sprawdzam format
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+        	// zdobywam nazwe
+        	String name = chooser.getSelectedFile().getName();
+        	// sprawdzam nazwe
+            if (name.substring(name.lastIndexOf(".")).equals(".csv")) {
+                return chooser.getSelectedFile().getPath();
+            } else {
+                return "";
+            }
+        }
+        return "";
+    }
+    
+    /**
+     * Pokazuje okno z opcja wpisania nazwy championa
+     * 
+     * @return Stromg
+     */
+    public String showWindowGetChampName() {
+    	String name = JOptionPane.showInputDialog(this, "Chamption name");
+    	
+    	return name;
+    }
+    
+    /**
+     * Pokazuje okno z errorem
+     * 
+     * @param msg String
+     */
+    public void showError(String msg) {
+    	JOptionPane.showMessageDialog(this, msg, "Error",JOptionPane.ERROR_MESSAGE);
+    }
+    
+    /**
+     * Daje obu buttonom podanego action listenera
+     * 
+     * @param al ActionListener
+     */
     public void addBtnActionListener(ActionListener al) {
     	btnAddGame.addActionListener(al);
         btnAddChamp.addActionListener(al);
+    }
+    
+    /**
+     * Zdobywa panel na ktorym logowane sa wiadomosci z programu
+     * 
+     * @return JTextArea
+     */
+    public JTextArea getLogPanel() {
+    	return txtOutput;
     }
 }
