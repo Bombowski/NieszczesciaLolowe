@@ -1,6 +1,7 @@
 package nieszczescialolowe.model.file;
 
 import java.io.File;
+import java.io.IOException;
 
 import nieszczescialolowe.model.pojo.Game;
 
@@ -27,13 +28,7 @@ public class Writing {
 	 * @param line
 	 */
 	protected static void write(Game stats) {
-		try {
-			BasicCheck.basicCheck();
-			add(stats);
-		}
-		catch(Exception e) {
-			
-		}
+		
 	}
 	
 	/**
@@ -43,7 +38,7 @@ public class Writing {
 	 * @param line
 	 * @throws Exception
 	 */
-	private static void add(Game stats) throws Exception {
+	private static void addGame(Game stats) {
 		
 	}
 }
