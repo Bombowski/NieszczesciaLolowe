@@ -31,8 +31,29 @@ public class Game {
 				" ; time: " + time + " ; win/lose: " + winLose + " ; afks: " + afks + "]";
 	}
 	
-	public String csvToStrin() {
-		return kda + "," + champion + "," + lane + "," + time + "," + winLose + "," + afks;
+	/**
+	 * Zamienia parametry objectu Game a String z formatem z jakim dane beda zapisywane w pliku csv
+	 * 
+	 * @return String
+	 */
+	public String strinToCsv() {
+		return champion + "," + lane + "," + kda + "," + winLose + "," + time + "," + afks;
+	}
+	
+	/**
+	 * Zamienia linie z pliku csv w parametry objectu Game i odrazu je setuje.
+	 * 
+	 * @param line String
+	 */
+	public void csvToGame(String line) {
+		String split[] = line.split(",");
+
+		this.champion = split[1];
+		this.lane = split[2];
+		this.kda = split[3];
+		this.winLose = split[4];
+		this.time = split[5];
+		this.afks = Integer.parseInt(split[6]);
 	}
 	
 	public String getKda() {
