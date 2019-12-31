@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
 import nieszczescialolowe.model.Log;
-import nieszczescialolowe.view.Game;
+import nieszczescialolowe.model.pojo.Game;
 import nieszczescialolowe.view.Window;
 
 /**

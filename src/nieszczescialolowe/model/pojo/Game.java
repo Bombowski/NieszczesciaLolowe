@@ -1,4 +1,4 @@
-package nieszczescialolowe.view;
+package nieszczescialolowe.model.pojo;
 
 /**
  * @author Patryk

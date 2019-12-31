@@ -21,6 +21,8 @@ import javax.swing.SpinnerListModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.WindowConstants;
 
+import nieszczescialolowe.model.pojo.Game;
+
 /**
  * @author Patryk
  * 

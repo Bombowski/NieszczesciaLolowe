@@ -1,4 +1,4 @@
-package nieszczescialolowe.file;
+package nieszczescialolowe.model.file;
 
 import java.io.File;
 
