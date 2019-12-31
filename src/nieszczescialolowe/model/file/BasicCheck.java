@@ -12,7 +12,7 @@ public class BasicCheck {
 
 	private static final String HEADERchamps = "<Champions>";
 	protected static final String HEADERgames = "<Games>";
-	private static final String HEADERstats = "Champion,lane,kda,win/lose,time,afks";
+	protected static final String HEADERstats = "Champion,lane,kda,win/lose,time,afks";
 	
 	/**
 	 * Oddaje tylko true jesli ma odpowiedni format
@@ -28,14 +28,14 @@ public class BasicCheck {
 		if (!file.contains(HEADERchamps) || !file.contains(HEADERgames) || !file.contains(HEADERstats)) return false;
 		
 		int i = 0;
-		while (line != HEADERgames) {
+		while (!line.equals(HEADERgames)) {
 			i++;
 			line = file.get(i);
 		}
 		
-		if (file.get(0) != HEADERchamps) return false;
-		if (file.get(i-1) != "" || file.get(i-2) != "") return false;
-		if (file.get(i+1) != HEADERstats) return false;
+		if (!file.get(0).equals(HEADERchamps)) return false;
+		if (!file.get(i-1).equals("") || file.get(i-2).equals("")) return false;
+		if (!file.get(i+1).equals(HEADERstats)) return false;
 		
 		return true;
 	}

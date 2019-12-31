@@ -16,10 +16,10 @@ import nieszczescialolowe.model.Log;
  */
 public class Reading {
 
-	protected File file;
+	protected File path;
 	
 	protected Reading(String path) {
-		file = new File(path);
+		this.path = new File(path);
 	}
 	
 	/**
@@ -33,7 +33,7 @@ public class Reading {
 		ArrayList<String> file = new ArrayList<String>();
 		
 		try {
-			reader = new BufferedReader(new FileReader(Writing.FILE));
+			reader = new BufferedReader(new FileReader(this.path));
 			String line = reader.readLine();
 			
 			while (line != null) {
@@ -61,12 +61,12 @@ public class Reading {
 		BufferedReader reader = null;
 		
 		try {
-			reader = new BufferedReader(new FileReader(Writing.FILE));
+			reader = new BufferedReader(new FileReader(this.path));
 			String line = reader.readLine();
 			line = reader.readLine();
 			
-			while (line != BasicCheck.HEADERgames) {
-				if (line != "") list.add(line);
+			while (!line.equals(BasicCheck.HEADERgames)) {
+				if (!line.equals("")) list.add(line);
 				line = reader.readLine();
 			}
 			
@@ -81,13 +81,33 @@ public class Reading {
 	
 	/**
 	 * Oddaje liste X ostatnich gier
+	 * TODO zrobic zeby oddalo tylko X gier
 	 * 
 	 * @return
+	 * @throws IOException 
 	 */
-	protected ArrayList<String> getLastGames(){
+	protected ArrayList<String> getLastGames() throws IOException {
 		ArrayList<String> list = new ArrayList<String>();
+		ArrayList<String> file = null;
 		
-		
+		try {
+			file = getExistingFileLines();
+			String line = null;
+			int i = 0;
+			while (!line.equals(BasicCheck.HEADERstats)) {
+				line = file.get(i);
+				i++;
+			}
+			
+			while (i < file.size()) {
+				line = file.get(i);
+				list.add(line);
+				i++;
+			}
+			
+		} catch(IOException e) {
+			Log.log(e.getMessage());
+		}
 		
 		return list;
 	}
