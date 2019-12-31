@@ -12,9 +12,9 @@ import java.io.FileWriter;
  */
 public class BasicCheck {
 
-	public static final String HEADER = "Champion,lane,kda,win/lose,time,afks";
+	private static final String HEADER = "Champion,lane,kda,win/lose,time,afks";
 	
-	public static void basicCheck(String line) throws Exception {
+	protected static void basicCheck() throws Exception {
 		BufferedReader read = new BufferedReader(new FileReader(Writing.FILE));
 		BufferedWriter write = new BufferedWriter(new FileWriter(Writing.FILE,true));
 		

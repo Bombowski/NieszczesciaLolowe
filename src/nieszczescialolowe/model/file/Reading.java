@@ -12,7 +12,17 @@ import java.util.ArrayList;
  */
 public class Reading {
 
-	protected static ArrayList<String> getExistingFileLines() throws Exception{
+	protected Reading() {
+		
+	}
+	
+	/**
+	 * Oddaje cala zawartosc pliku csv
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	protected ArrayList<String> getExistingFileLines() throws Exception{
 		BufferedReader reader = new BufferedReader(new FileReader(Writing.FILE));
 		ArrayList<String> file = new ArrayList<String>();
 		String line = reader.readLine();
@@ -23,5 +33,31 @@ public class Reading {
 		}
 		reader.close();
 		return file;
+	}
+	
+	/**
+	 * Oddaje liste championow
+	 * 
+	 * @return
+	 */
+	protected ArrayList<String> getChampionList() {
+		ArrayList<String> list = new ArrayList<String>();
+		
+		
+		
+		return list;
+	}
+	
+	/**
+	 * Oddaje liste X ostatnich gier
+	 * 
+	 * @return
+	 */
+	protected ArrayList<String> getLastGames(){
+		ArrayList<String> list = new ArrayList<String>();
+		
+		
+		
+		return list;
 	}
 }

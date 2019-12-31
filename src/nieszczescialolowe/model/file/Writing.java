@@ -2,6 +2,8 @@ package nieszczescialolowe.model.file;
 
 import java.io.File;
 
+import nieszczescialolowe.model.pojo.Game;
+
 /**
  * Clasa odpowiedzialna za zapisywanie statystyk X gier
  * 
@@ -9,7 +11,14 @@ import java.io.File;
  */
 public class Writing {
 	
-	public static File FILE;
+	protected static File FILE;
+	
+	/**
+	 * Wyznacza rute do FILE
+	 */
+	protected Writing() {
+		
+	}
 	
 	/**
 	 * Metoda wzywana do zapisania nowej gry
@@ -17,10 +26,10 @@ public class Writing {
 	 * 
 	 * @param line
 	 */
-	public static void write(String line) {
+	protected static void write(Game stats) {
 		try {
-			BasicCheck.basicCheck(line);
-			add(line);
+			BasicCheck.basicCheck();
+			add(stats);
 		}
 		catch(Exception e) {
 			
@@ -34,7 +43,7 @@ public class Writing {
 	 * @param line
 	 * @throws Exception
 	 */
-	private static void add(String line) throws Exception {
+	private static void add(Game stats) throws Exception {
 		
 	}
 }
