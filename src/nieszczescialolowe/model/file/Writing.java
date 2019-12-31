@@ -11,13 +11,13 @@ import nieszczescialolowe.model.pojo.Game;
  */
 public class Writing {
 	
-	protected static File FILE;
+	protected File file;
 	
 	/**
 	 * Wyznacza rute do FILE
 	 */
-	protected Writing() {
-		
+	protected Writing(String path) {
+		file = new File(path);
 	}
 	
 	/**
@@ -30,8 +30,7 @@ public class Writing {
 		try {
 			BasicCheck.basicCheck();
 			add(stats);
-		}
-		catch(Exception e) {
+		} catch(Exception e) {
 			
 		}
 	}

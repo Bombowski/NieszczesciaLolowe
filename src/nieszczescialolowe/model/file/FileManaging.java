@@ -10,8 +10,8 @@ public class FileManaging {
 	private Reading out;
 	
 	public FileManaging(String path) {
-		in = new Writing();
-		out = new Reading();
+		in = new Writing(path);
+		out = new Reading(path);
 	}
 	
 	public void addGame(Game game) {

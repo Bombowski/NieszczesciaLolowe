@@ -1,6 +1,7 @@
 package nieszczescialolowe.model.file;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 
@@ -12,8 +13,10 @@ import java.util.ArrayList;
  */
 public class Reading {
 
-	protected Reading() {
-		
+	protected File file;
+	
+	protected Reading(String path) {
+		file = new File(path);
 	}
 	
 	/**
@@ -23,7 +26,7 @@ public class Reading {
 	 * @throws Exception
 	 */
 	protected ArrayList<String> getExistingFileLines() throws Exception{
-		BufferedReader reader = new BufferedReader(new FileReader(Writing.FILE));
+		BufferedReader reader = new BufferedReader(new FileReader(Writing.file));
 		ArrayList<String> file = new ArrayList<String>();
 		String line = reader.readLine();
 		
