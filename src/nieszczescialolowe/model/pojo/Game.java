@@ -36,7 +36,7 @@ public class Game {
 	 * 
 	 * @return String
 	 */
-	public String strinToCsv() {
+	public String stringToCsv() {
 		return champion + "," + lane + "," + kda + "," + winLose + "," + time + "," + afks;
 	}
 	
