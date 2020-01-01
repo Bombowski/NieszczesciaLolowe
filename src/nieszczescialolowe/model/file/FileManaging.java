@@ -44,13 +44,13 @@ public class FileManaging {
 	 * @throws IOException
 	 */
 	public void addChampion(String champ) throws IOException {
-		ArrayList<String> lines = in.getExistingFileLines(); 
+		ArrayList<String> file = in.getExistingFileLines(); 
 		
-		if (BasicCheck.basicCheck(lines)) {
-			out.addChamp(champ);
+		if (BasicCheck.basicCheck(file)) {
+			out.addChamp(file, champ);
 		} else {
 			out.createDocFormat();
-			out.addChamp(champ);
+			out.addChamp(file, champ);
 		}
 	}
 	
@@ -62,9 +62,9 @@ public class FileManaging {
 	 * @throws IOException
 	 */
 	public ArrayList<Game> getTopXGames(int x) throws IOException {
-		ArrayList<String> lines = in.getExistingFileLines(); 
+		ArrayList<String> file = in.getExistingFileLines(); 
 		
-		if (BasicCheck.basicCheck(lines)) {
+		if (BasicCheck.basicCheck(file)) {
 			return in.getLastGames(x);
 		} else {
 			out.createDocFormat();
@@ -79,10 +79,10 @@ public class FileManaging {
 	 * @throws IOException 
 	 */
 	public void deleteChampion(String champ) throws IOException {
-		ArrayList<String> lines = in.getExistingFileLines();
+		ArrayList<String> file = in.getExistingFileLines();
 		
-		if (BasicCheck.basicCheck(lines)) {
-			out.deleteChampion(champ);
+		if (BasicCheck.basicCheck(file)) {
+			out.deleteChampion(file, champ);
 		} else {
 			out.createDocFormat();
 		}
@@ -94,10 +94,10 @@ public class FileManaging {
 	 * @throws IOException 
 	 */
 	public void deleteLastGame() throws IOException {
-		ArrayList<String> lines = in.getExistingFileLines();
+		ArrayList<String> file = in.getExistingFileLines();
 		
-		if (BasicCheck.basicCheck(lines)) {
-			out.deleteLastGame();
+		if (BasicCheck.basicCheck(file)) {
+			out.deleteLastGame(file);
 		} else {
 			out.createDocFormat();
 		}
@@ -110,9 +110,9 @@ public class FileManaging {
 	 * @throws IOException
 	 */
 	public ArrayList<String> getChampionList() throws IOException {
-		ArrayList<String> lines = in.getExistingFileLines();
+		ArrayList<String> file = in.getExistingFileLines();
 		
-		if (BasicCheck.basicCheck(lines)) {
+		if (BasicCheck.basicCheck(file)) {
 			return in.getChampionList();
 		} else {
 			out.createDocFormat();
