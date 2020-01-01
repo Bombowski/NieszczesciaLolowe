@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import nieszczescialolowe.model.Log;
+import nieszczescialolowe.model.pojo.Game;
 
 /**
  * Clasa czytajaca plik csv
@@ -16,7 +17,7 @@ import nieszczescialolowe.model.Log;
  */
 public class Reading {
 
-	protected File path;
+	private File path;
 	
 	protected Reading(String path) {
 		this.path = new File(path);
@@ -86,7 +87,7 @@ public class Reading {
 	 * @return
 	 * @throws IOException 
 	 */
-	protected ArrayList<String> getLastGames() throws IOException {
+	protected ArrayList<Game> getLastGames(int x) throws IOException {
 		ArrayList<String> list = new ArrayList<String>();
 		ArrayList<String> file = null;
 		
@@ -108,6 +109,7 @@ public class Reading {
 		} catch(IOException e) {
 			Log.log(e.getMessage());
 		}
+		
 		
 		return list;
 	}

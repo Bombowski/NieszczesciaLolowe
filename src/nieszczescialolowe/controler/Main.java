@@ -3,14 +3,18 @@ package nieszczescialolowe.controler;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.swing.JButton;
 
 import nieszczescialolowe.model.Log;
+import nieszczescialolowe.model.file.FileManaging;
 import nieszczescialolowe.model.pojo.Game;
 import nieszczescialolowe.view.Window;
 
 /**
- * Controller zadzi
+ * Controller zadzi i decyduje co z czym i kiedy robic
  *
  * @author Patryk
  */
@@ -18,29 +22,24 @@ public class Main implements ActionListener {
     
 	// okno
     private Window window;
-    // w tym 
-    private String path;
+    private FileManaging fm;
     
     public static void main(String args[]) {
         new Main();
     }                
     
     private Main() {
-    	/*
-    	 * ArrayList<String> champs = 
-    	 * TODO tutaj trzeba zawolac funkcje ktora zreturnuje
-    	 * liste z championami
-    	 */
-    	
-    	// TODO window = new Window(champs);
 		window = new Window();
 		
-		/*
-		 * TODO zamiast String bedzie inicializacja jakiesc klasy ktora bedzie czytac/ pisac/
-		 * miec kontakt z klasa od czytana pisania (ostatnia opcja najlepsza)
-		 */
-        path = window.getCsvPathStartWindow();
-        
+        fm = new FileManaging(window.getCsvPathStartWindow());
+    	
+		try {
+			ArrayList<String> champs = fm.getChampionList();
+	        window.setCmbChamps(champs);
+		} catch (IOException e) {
+			Log.log(e.getMessage());
+		}
+    	
         // dodaje action listenery
         window.addBtnActionListener(this);
         
@@ -53,36 +52,49 @@ public class Main implements ActionListener {
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-    	// zdobywal nacisniety guzik z eventu
         JButton btn = (JButton) e.getSource();
         
-        // sprawdzam ktory byl nacisniety
-        if (btn.getText().equals("Add game")) {
-        	// zdobywam wszystkie informacje gry
-        	Game game = window.getGame();
-        	
-        	// sprawdzam czy kda ma poprawny format
-        	if (chkKdaFormat(game.getKda())) {
-        		
-        		// loguje gre ktora chcem dodac
-        		Log.log("Adding: " + game);
-        		
-            	// TODO tutaj trzeba podac form funkcji ktora bedzie zapisywala gry
-        	}
-        } else {
-        	// pytam jaka nazwe ma champ
-        	String name = window.showWindowGetChampName();
-        	
-        	// sprawdzam czy jest valid
-        	if (name == null || name.equals("")) {
-        		window.showError("Invalid champion name");
-        		return;
-        	}
-        	
-        	/*
-        	 *  TODO tutaj trzeba podac name funkcji ktora bedzie zapisywac nazwy champow
-        	 * (i sprawdzac czy jeszcze nie istnieja)
-        	 */
+        try {
+	        switch (btn.getText()) {
+	        	case "Add game":
+		        	Game game = window.getGame();
+		        	
+		        	// sprawdzam czy kda ma poprawny format
+		        	if (chkKdaFormat(game.getKda())) {
+		        		Log.log("Adding: " + game);
+		        		fm.addGame(game);
+		        	}
+		        	break;
+		        	
+		        case "Delete last game":
+		        	fm.deleteLastGame();
+		        	break;
+		        	
+		        case "Add champion":
+		        	// pytam jaka nazwe ma champ
+		        	String name = window.showWindowGetChampName();
+		        	
+		        	// sprawdzam czy jest valid
+		        	if (name == null || name.equals("")) {
+		        		window.showError("Invalid champion name");
+		        		return;
+		        	}
+		        	
+		        	fm.addChampion(name);
+		        	break;
+		        	
+		        case "Delete champion":
+		        	Game game2 = window.getGame();
+		        	
+		        	if (game2.getChampion() == null) {
+		        		window.showError("First you need to add a champion");
+		        		return;
+		        	}
+		        	
+		        	fm.deleteChampion(game2.getChampion());
+	        }
+        } catch (IOException ie) {
+        	Log.log(ie.getMessage());
         }
     }
     
@@ -114,5 +126,5 @@ public class Main implements ActionListener {
     	}
     	
     	return true;
-    }
+    } 
 }

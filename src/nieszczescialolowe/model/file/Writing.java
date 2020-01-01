@@ -12,7 +12,7 @@ import nieszczescialolowe.model.pojo.Game;
  */
 public class Writing {
 	
-	protected File file;
+	private File file;
 	
 	/**
 	 * Wyznacza rute do FILE
@@ -22,23 +22,27 @@ public class Writing {
 	}
 	
 	/**
-	 * Metoda wzywana do zapisania nowej gry
-	 * Wzywa basicCheck a potem metoda add do zapisania
 	 * 
-	 * @param line
+	 * 
+	 * @param stats
 	 */
-	protected static void write(Game stats) {
+	protected void addGame(Game stats) {
 		
 	}
 	
-	/**
-	 * Metoda do dodawania statystyk nowej gry i usuwania starych
-	 * tak zeby maksymalnie bylo zapisanych X gier
-	 * 
-	 * @param line
-	 * @throws Exception
-	 */
-	private static void addGame(Game stats) {
+	protected void addChamp(String champ) {
+		
+	}
+	
+	protected void createDocFormat() {
+		
+	}
+	
+	protected void deleteLastGame() {
+		
+	}
+	
+	protected void deleteChampion(String name) {
 		
 	}
 }

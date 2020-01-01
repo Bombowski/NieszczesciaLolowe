@@ -2,6 +2,8 @@ package nieszczescialolowe.view;
 
 import java.awt.Dialog;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
@@ -33,8 +35,10 @@ public class Window extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JButton btnAddChamp;
     private JButton btnAddGame;
+    private JButton btnDelChamp;
+    private JButton btnDelGame;
     private JComboBox<String> cmbChamp;
-    private JComboBox<String> cmbLine;
+    private JComboBox<String> cmbLane;
     private JScrollPane jScrollPane1;
     private JLabel lblAfks;
     private JLabel lblChamp;
@@ -52,8 +56,6 @@ public class Window extends JFrame {
     private JTextField txtInput;
     private JTextField txtKda;
     private JTextArea txtOutput;
-    
-    
     
     public Window() {}
     
@@ -74,7 +76,7 @@ public class Window extends JFrame {
         lblChamp = new JLabel();
         cmbChamp = new JComboBox<>();
         lblLane = new JLabel();
-        cmbLine = new JComboBox<>();
+        cmbLane = new JComboBox<>();
         lblTime = new JLabel();
         spinHour = new JSpinner();
         spinMin = new JSpinner();
@@ -85,6 +87,8 @@ public class Window extends JFrame {
         spinAfks = new JSpinner();
         btnAddGame = new JButton();
         btnAddChamp = new JButton();
+        btnDelChamp = new JButton();
+        btnDelGame = new JButton();
         panelConsole = new JPanel();
         jScrollPane1 = new JScrollPane();
         txtOutput = new JTextArea();
@@ -102,7 +106,7 @@ public class Window extends JFrame {
 
         lblLane.setText("Lane");
 
-        cmbLine.setModel(new DefaultComboBoxModel<>(new String[] { "Top", "Mid", "Adc", "Sup", "Jun" }));
+        cmbLane.setModel(new DefaultComboBoxModel<>(new String[] { "Top", "Mid", "Adc", "Sup", "Jun" }));
 
         lblTime.setText("Game length");
 
@@ -122,7 +126,11 @@ public class Window extends JFrame {
 
         btnAddGame.setText("Add game");
 
-        btnAddChamp.setText("Add Champion");
+        btnAddChamp.setText("Add champion");
+
+        btnDelChamp.setText("Delete champion");
+
+        btnDelGame.setText("Delete last game");
 
         GroupLayout panelControlLayout = new GroupLayout(panelControl);
         panelControl.setLayout(panelControlLayout);
@@ -152,19 +160,24 @@ public class Window extends JFrame {
                                     .addComponent(lblTime)
                                     .addComponent(lblLane))
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(panelControlLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                .addGroup(panelControlLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
                                     .addGroup(panelControlLayout.createSequentialGroup()
                                         .addComponent(spinHour, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(spinMin, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(spinSec, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(cmbChamp, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cmbLine, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnAddChamp)))
-                            .addComponent(lblChamp)))
+                                    .addComponent(cmbLane, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cmbChamp, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(lblChamp)
+                            .addGroup(panelControlLayout.createSequentialGroup()
+                                .addComponent(btnAddChamp)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnDelChamp))))
                     .addGroup(panelControlLayout.createSequentialGroup()
                         .addComponent(btnAddGame)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnDelGame)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -186,17 +199,19 @@ public class Window extends JFrame {
                     .addComponent(lblChamp)
                     .addComponent(lblWL))
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelControlLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addGroup(panelControlLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                        .addComponent(lblAfks)
-                        .addComponent(spinAfks, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnAddChamp))
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelControlLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                    .addComponent(cmbLine, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblAfks)
+                    .addComponent(spinAfks, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAddChamp)
+                    .addComponent(btnDelChamp))
+                .addGap(9, 9, 9)
+                .addGroup(panelControlLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmbLane, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblLane))
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-                .addComponent(btnAddGame)
+                .addGroup(panelControlLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAddGame)
+                    .addComponent(btnDelGame))
                 .addGap(18, 18, Short.MAX_VALUE))
         );
 
@@ -258,7 +273,7 @@ public class Window extends JFrame {
     	Game game = new Game();
     	game.setKda(txtKda.getText());
     	game.setChampion((String) cmbChamp.getSelectedItem());
-    	game.setLane((String) cmbLine.getSelectedItem());
+    	game.setLane((String) cmbLane.getSelectedItem());
     	game.setTime(spinHour.getValue() + ":" + spinMin.getValue() + ":" + spinSec.getValue());
     	game.setWinLose((String) spinWL.getValue());
     	game.setAfks((int) spinAfks.getValue());
@@ -347,7 +362,9 @@ public class Window extends JFrame {
      */
     public void addBtnActionListener(ActionListener al) {
     	btnAddGame.addActionListener(al);
+    	btnDelGame.addActionListener(al);
         btnAddChamp.addActionListener(al);
+        btnDelChamp.addActionListener(al);
     }
     
     /**
@@ -357,5 +374,17 @@ public class Window extends JFrame {
      */
     public JTextArea getLogPanel() {
     	return txtOutput;
+    }
+    
+    /**
+     * Dodaje liste championow do okna
+     * 
+     * @param champs ArrayList<String>
+     */
+    public void setCmbChamps(ArrayList<String> champs) {
+    	cmbChamp.removeAll();
+    	for (String champ : champs) {
+			cmbChamp.addItem(champ);
+		}
     }
 }
