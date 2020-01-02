@@ -36,7 +36,7 @@ public class Writing {
 		
 		try {
 			writer = new BufferedWriter(new FileWriter(this.file, true));
-			writer.write(stats.toString());
+			writer.write(stats.stringToCsv());
 			
 		} catch(IOException e){
 			Log.log(e.getMessage());
@@ -71,8 +71,18 @@ public class Writing {
 		}
 	}
 	
-	protected void createDocFormat() {
+	protected void createDocFormat() throws IOException {
+		BufferedWriter writer = null;
 		
+		try {
+			writer = new BufferedWriter(new FileWriter(this.file));
+			writer.write(BasicCheck.HEADERchamps + '\n' + '\n' + '\n' + BasicCheck.HEADERgames + '\n' + BasicCheck.HEADERstats);
+			
+		} catch(IOException e) {
+			Log.log(e.getMessage());
+		} finally {
+			if (writer != null) writer.close();
+		}
 	}
 	
 	protected void deleteLastGame(ArrayList<String> file) throws IOException {
