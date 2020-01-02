@@ -114,7 +114,6 @@ public class Reading {
 		}
 		
 		
-//		return list;
-		return new ArrayList<Game>();
+		return list;
 	}
 }
