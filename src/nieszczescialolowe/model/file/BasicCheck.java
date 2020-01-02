@@ -34,7 +34,7 @@ public class BasicCheck {
 		}
 		
 		if (!file.get(0).equals(HEADERchamps)) return false;
-		if (!file.get(i-1).equals("") || file.get(i-2).equals("")) return false;
+		if (!file.get(i-1).equals("") || !file.get(i-2).equals("")) return false;
 		if (!file.get(i+1).equals(HEADERstats)) return false;
 		
 		return true;
