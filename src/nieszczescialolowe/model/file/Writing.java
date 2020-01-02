@@ -29,13 +29,46 @@ public class Writing {
 	 * 
 	 * 
 	 * @param stats
+	 * @throws IOException 
 	 */
-	protected void addGame(Game stats) {
+	protected void addGame(Game stats) throws IOException {
+		BufferedWriter writer = null;
 		
+		try {
+			writer = new BufferedWriter(new FileWriter(this.file, true));
+			writer.write(stats.toString());
+			
+		} catch(IOException e){
+			Log.log(e.getMessage());
+		} finally {
+			if (writer != null) writer.close();
+		}
 	}
 	
-	protected void addChamp(ArrayList<String> file, String champ) {
+	protected void addChamp(ArrayList<String> file, String champ) throws IOException {
+		int index = 0;
+		String line = null;
+		line = file.get(index);
 		
+		while (!line.equals(BasicCheck.HEADERgames)) {
+			index++;
+			line = file.get(index);
+		}
+		
+		file.add(index - 2, champ);
+		BufferedWriter writer = null;
+		
+		try {
+			writer = new BufferedWriter(new FileWriter(this.file));
+			for (int i = 0; i < file.size(); i++) {
+				writer.write(file.get(i));
+			}
+			
+		} catch(IOException e) {
+			Log.log(e.getMessage());
+		} finally {
+			if (writer != null) writer.close();
+		}
 	}
 	
 	protected void createDocFormat() {
