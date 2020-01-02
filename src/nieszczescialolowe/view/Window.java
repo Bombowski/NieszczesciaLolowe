@@ -417,4 +417,8 @@ public class Window extends JFrame {
     public void addChamp(String champ) {
     	cmbChamp.addItem(champ);
     }
+    
+    public void removeSelectedChamp() {
+    	cmbChamp.removeItemAt(cmbChamp.getSelectedIndex());
+    }
 }
