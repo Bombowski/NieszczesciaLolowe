@@ -4,7 +4,9 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import nieszczescialolowe.model.Log;
 import nieszczescialolowe.model.pojo.Game;
@@ -26,7 +28,7 @@ public class Writing {
 	}
 	
 	/**
-	 * 
+	 * Dodaje staty gry do pliku csv
 	 * 
 	 * @param stats
 	 * @throws IOException 
@@ -34,9 +36,11 @@ public class Writing {
 	protected void addGame(Game stats) throws IOException {
 		BufferedWriter writer = null;
 		
+		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+		
 		try {
 			writer = new BufferedWriter(new FileWriter(this.file, true));
-			writer.write(stats.stringToCsv() + '\n');
+			writer.write(formatter.format(new Date()) + "," + stats.stringToCsv() + '\n');
 			
 		} catch(IOException e){
 			Log.log(e.getMessage());
@@ -47,8 +51,9 @@ public class Writing {
 	
 	protected void addChamp(ArrayList<String> file, String champ) throws IOException {
 		int index = 0;
-		String line = null;
-		line = file.get(index);
+		String line = file.get(index);
+		
+		if (file.contains(champ)) return;
 		
 		while (!line.equals(BasicCheck.HEADERgames)) {
 			index++;
@@ -60,8 +65,8 @@ public class Writing {
 		
 		try {
 			writer = new BufferedWriter(new FileWriter(this.file));
-			for (int i = 0; i < file.size(); i++) {
-				writer.write(file.get(i) + '\n');
+			for (String lines : file) {
+				writer.write(lines + '\n');
 			}
 			
 		} catch(IOException e) {
