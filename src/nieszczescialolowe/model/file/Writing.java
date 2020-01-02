@@ -98,8 +98,6 @@ public class Writing {
 			
 			if (!file.get(file.size() - 1).equals(BasicCheck.HEADERstats)) {
 				file.remove(file.size() - 1);
-			} else {
-				return;
 			}
 			
 			for (String line : file) {
@@ -120,10 +118,10 @@ public class Writing {
 		try {
 			out = new BufferedWriter(new FileWriter(this.file));
 			
-			if (file.remove(name)) {
-				for (String line : file) {
-					out.write(line + "\n");
-				}
+			file.remove(name);
+			
+			for (String line : file) {
+				out.write(line + "\n");
 			}
 			
 			out.close();

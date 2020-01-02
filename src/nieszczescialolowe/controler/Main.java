@@ -94,6 +94,8 @@ public class Main implements ActionListener {
 		        		return;
 		        	}
 		        	
+		        	window.removeSelectedChamp();
+		        	
 		        	fm.deleteChampion(game2.getChampion());
 	        }
         } catch (IOException ie) {
