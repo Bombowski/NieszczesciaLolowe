@@ -10,7 +10,7 @@ import java.util.ArrayList;
  */
 public class BasicCheck {
 
-	private static final String HEADERchamps = "<Champions>";
+	protected static final String HEADERchamps = "<Champions>";
 	protected static final String HEADERgames = "<Games>";
 	protected static final String HEADERstats = "Champion,lane,kda,win/lose,time,afks";
 	
