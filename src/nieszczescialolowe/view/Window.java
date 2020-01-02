@@ -2,6 +2,8 @@ package nieszczescialolowe.view;
 
 import java.awt.Dialog;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
 import javax.swing.DefaultComboBoxModel;
@@ -24,6 +26,7 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.WindowConstants;
 
 import nieszczescialolowe.model.pojo.Game;
+import nieszczescialolowe.model.pojo.Kda;
 
 /**
  * @author Patryk
@@ -271,7 +274,11 @@ public class Window extends JFrame {
      */
     public Game getGame() {
     	Game game = new Game();
-    	game.setKda(txtKda.getText());
+    	
+    	if (Kda.chkKdaFormat(txtKda.getText(), this)) {
+        	game.setKda(new Kda(txtKda.getText()));
+    	}
+    	
     	game.setChampion((String) cmbChamp.getSelectedItem());
     	game.setLane((String) cmbLane.getSelectedItem());
     	game.setTime(spinHour.getValue() + ":" + spinMin.getValue() + ":" + spinSec.getValue());
@@ -325,6 +332,7 @@ public class Window extends JFrame {
         if (returnVal == JFileChooser.APPROVE_OPTION) {
         	// zdobywam nazwe
         	String name = chooser.getSelectedFile().getName();
+        	
         	// sprawdzam nazwe
             if (name.substring(name.lastIndexOf(".")).equals(".csv")) {
                 return chooser.getSelectedFile().getPath();
@@ -356,7 +364,7 @@ public class Window extends JFrame {
     }
     
     /**
-     * Daje obu buttonom podanego action listenera
+     * Dodaje buttonom action listenera
      * 
      * @param al ActionListener
      */
@@ -365,6 +373,15 @@ public class Window extends JFrame {
     	btnDelGame.addActionListener(al);
         btnAddChamp.addActionListener(al);
         btnDelChamp.addActionListener(al);
+    }
+    
+    /**
+     * Dodaje TextFieldowi action listenera
+     * 
+     * @param al ActionListener
+     */
+    public void addTxtActionListener(KeyListener al) {
+    	txtInput.addKeyListener(al);
     }
     
     /**
@@ -377,6 +394,15 @@ public class Window extends JFrame {
     }
     
     /**
+     * Zdobywa panel w ktorym uzytkownik wpisuje komendy
+     * 
+     * @return
+     */
+    public JTextField getInputPanel() {
+    	return txtInput;
+    }
+    
+    /**
      * Dodaje liste championow do okna
      * 
      * @param champs ArrayList<String>
@@ -386,5 +412,9 @@ public class Window extends JFrame {
     	for (String champ : champs) {
 			cmbChamp.addItem(champ);
 		}
+    }
+    
+    public void addChamp(String champ) {
+    	cmbChamp.addItem(champ);
     }
 }
