@@ -36,7 +36,7 @@ public class Writing {
 		
 		try {
 			writer = new BufferedWriter(new FileWriter(this.file, true));
-			writer.write(stats.stringToCsv());
+			writer.write(stats.stringToCsv() + '\n');
 			
 		} catch(IOException e){
 			Log.log(e.getMessage());

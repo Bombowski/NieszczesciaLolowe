@@ -22,12 +22,13 @@ public class BasicCheck {
 	 * @throws IOException
 	 */
 	protected static boolean basicCheck(ArrayList<String> file) throws IOException {
-		String line = file.get(0);
 		
 		if (file.size() <= 0) return false;
 		if (!file.contains(HEADERchamps) || !file.contains(HEADERgames) || !file.contains(HEADERstats)) return false;
 		
+		String line = file.get(0);
 		int i = 0;
+		
 		while (!line.equals(HEADERgames)) {
 			i++;
 			line = file.get(i);
