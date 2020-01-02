@@ -61,7 +61,7 @@ public class Writing {
 		try {
 			writer = new BufferedWriter(new FileWriter(this.file));
 			for (int i = 0; i < file.size(); i++) {
-				writer.write(file.get(i));
+				writer.write(file.get(i) + '\n');
 			}
 			
 		} catch(IOException e) {
@@ -76,7 +76,7 @@ public class Writing {
 		
 		try {
 			writer = new BufferedWriter(new FileWriter(this.file));
-			writer.write(BasicCheck.HEADERchamps + '\n' + '\n' + '\n' + BasicCheck.HEADERgames + '\n' + BasicCheck.HEADERstats);
+			writer.write(BasicCheck.HEADERchamps + '\n' + '\n' + '\n' + BasicCheck.HEADERgames + '\n' + BasicCheck.HEADERstats + '\n');
 			
 		} catch(IOException e) {
 			Log.log(e.getMessage());
