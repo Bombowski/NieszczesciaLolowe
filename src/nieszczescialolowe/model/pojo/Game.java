@@ -7,7 +7,7 @@ package nieszczescialolowe.model.pojo;
  */
 public class Game {
 
-	private String kda;
+	private Kda kda;
 	private String champion;
 	private String lane;
 	private String time;
@@ -15,7 +15,7 @@ public class Game {
 	private int afks;
 	
 	public Game(String kda, String champion, String lane, String time, String winLose, int afks) {
-		this.kda = kda;
+		this.kda = new Kda(kda);
 		this.champion = champion;
 		this.lane = lane;
 		this.time = time;
@@ -50,17 +50,17 @@ public class Game {
 
 		this.champion = split[1];
 		this.lane = split[2];
-		this.kda = split[3];
+		this.kda = new Kda(split[3]);
 		this.winLose = split[4];
 		this.time = split[5];
 		this.afks = Integer.parseInt(split[6]);
 	}
 	
-	public String getKda() {
+	public Kda getKda() {
 		return kda;
 	}
 
-	public void setKda(String kda) {
+	public void setKda(Kda kda) {
 		this.kda = kda;
 	}
 

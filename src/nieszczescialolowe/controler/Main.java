@@ -43,6 +43,8 @@ public class Main implements ActionListener {
         // dodaje action listenery
         window.addBtnActionListener(this);
         
+        new CommandPrompt(window, fm);
+        
         // podaje klasie log panel w ktorym bedzie logowala
         Log.setTxt(window.getLogPanel());
     }
@@ -60,7 +62,7 @@ public class Main implements ActionListener {
 		        	Game game = window.getGame();
 		        	
 		        	// sprawdzam czy kda ma poprawny format
-		        	if (chkKdaFormat(game.getKda())) {
+		        	if (game.getKda() != null) {
 		        		Log.log("Adding: " + game);
 		        		fm.addGame(game);
 		        	}
@@ -81,6 +83,7 @@ public class Main implements ActionListener {
 		        	}
 		        	
 		        	fm.addChampion(name);
+		        	window.addChamp(name);
 		        	break;
 		        	
 		        case "Delete champion":
@@ -97,34 +100,4 @@ public class Main implements ActionListener {
         	Log.log(ie.getMessage());
         }
     }
-    
-    /**
-     * Sprawdza format kda
-     * 
-     * @param kda String
-     * @return jesli jest k true
-     */
-    private boolean chkKdaFormat(String kda) {
-    	try {
-	    	String[] split = kda.split("/");
-	    	
-	    	if (split.length == 3) {
-	    		for (String str : split) {
-	    			int value = Integer.parseInt(str);
-					if (value > 99 || value < 0) {
-						window.showError("Kda has to be between 0 and 99");
-						return false;
-					}
-				}
-	    	} else {
-	    		window.showError("Please use the following format for the kda textfield: x/x/x");
-	    		return false;
-	    	}
-    	} catch (NumberFormatException nfe) {
-    		window.showError("Unvalid numbers in the kda textfield");
-    		return false;
-    	}
-    	
-    	return true;
-    } 
 }
