@@ -414,10 +414,18 @@ public class Window extends JFrame {
 		}
     }
     
+    /**
+     * Dodaje championa do comboboxa
+     * 
+     * @param champ String
+     */
     public void addChamp(String champ) {
     	cmbChamp.addItem(champ);
     }
     
+    /**
+     * Usuwa wybranego obecnie championa z comboboxa
+     */
     public void removeSelectedChamp() {
     	cmbChamp.removeItemAt(cmbChamp.getSelectedIndex());
     }

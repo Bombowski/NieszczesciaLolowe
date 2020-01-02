@@ -61,7 +61,11 @@ public class Main implements ActionListener {
 	        	case "Add game":
 		        	Game game = window.getGame();
 		        	
-		        	// sprawdzam czy kda ma poprawny format
+		        	if (game.getChampion() == null) {
+		        		window.showError("First you need to add a champion");
+		        		return;
+		        	}
+		        	
 		        	if (game.getKda() != null) {
 		        		Log.log("Adding: " + game);
 		        		fm.addGame(game);
@@ -82,8 +86,10 @@ public class Main implements ActionListener {
 		        		return;
 		        	}
 		        	
-		        	fm.addChampion(name);
-		        	window.addChamp(name);
+		        	if (fm.addChampion(name)) {
+			        	window.addChamp(name);
+		        	}
+		        	
 		        	break;
 		        	
 		        case "Delete champion":

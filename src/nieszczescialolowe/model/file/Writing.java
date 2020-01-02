@@ -49,11 +49,11 @@ public class Writing {
 		}
 	}
 	
-	protected void addChamp(ArrayList<String> file, String champ) throws IOException {
+	protected boolean addChamp(ArrayList<String> file, String champ) throws IOException {
 		int index = 0;
 		String line = file.get(index);
 		
-		if (file.contains(champ)) return;
+		if (file.contains(champ)) return false;
 		
 		while (!line.equals(BasicCheck.HEADERgames)) {
 			index++;
@@ -69,11 +69,15 @@ public class Writing {
 				writer.write(lines + '\n');
 			}
 			
+			return true;
+			
 		} catch(IOException e) {
 			Log.log(e.getMessage());
 		} finally {
-			if (writer != null) writer.close();
+			if (writer != null) writer.close();	
 		}
+		
+		return false;
 	}
 	
 	protected void createDocFormat() throws IOException {
@@ -90,6 +94,12 @@ public class Writing {
 		}
 	}
 	
+	/**
+	 * Usuwa ostatniom gre z ArrayList<String> file
+	 * 
+	 * @param file ArrayList<String>
+	 * @throws IOException
+	 */
 	protected void deleteLastGame(ArrayList<String> file) throws IOException {
 		BufferedWriter out = null;
 		
@@ -112,6 +122,13 @@ public class Writing {
 		}
 	}
 	
+	/**
+	 * Usuwa z pliku championa z podana nazwa
+	 * 
+	 * @param file ArrayList<String>
+	 * @param name String
+	 * @throws IOException
+	 */
 	protected void deleteChampion(ArrayList<String> file, String name) throws IOException {
 		BufferedWriter out = null;
 		

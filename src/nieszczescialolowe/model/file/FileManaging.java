@@ -43,15 +43,14 @@ public class FileManaging {
 	 * @param champ String
 	 * @throws IOException
 	 */
-	public void addChampion(String champ) throws IOException {
+	public boolean addChampion(String champ) throws IOException {
 		ArrayList<String> file = in.getExistingFileLines(); 
 		
-		if (BasicCheck.basicCheck(file)) {
-			out.addChamp(file, champ);
-		} else {
+		if (!BasicCheck.basicCheck(file)) {
 			out.createDocFormat();
-			out.addChamp(file, champ);
 		}
+		
+		return out.addChamp(file, champ);
 	}
 	
 	/**
