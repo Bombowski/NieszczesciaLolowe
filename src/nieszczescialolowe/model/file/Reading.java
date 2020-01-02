@@ -82,13 +82,12 @@ public class Reading {
 	
 	/**
 	 * Oddaje liste X ostatnich gier
-	 * TODO zrobic zeby oddalo tylko X gier
 	 * 
 	 * @return
 	 * @throws IOException 
 	 */
 	protected ArrayList<Game> getLastGames(int x) throws IOException {
-		ArrayList<String> list = new ArrayList<String>();
+		ArrayList<Game> list = new ArrayList<Game>();
 		ArrayList<String> file = null;
 		
 		try {
@@ -100,9 +99,13 @@ public class Reading {
 				i++;
 			}
 			
+			if (i <= file.size() - x) i = file.size() - x;
+			
 			while (i < file.size()) {
 				line = file.get(i);
-				list.add(line);
+				Game newGame = new Game();
+				newGame.csvToGame(line);
+				list.add(newGame);
 				i++;
 			}
 			
