@@ -97,13 +97,8 @@ public class Writing {
 				return;
 			}
 			
-			int i = 0;
 			for (String line : file) {
-				if (i == 0) {
-					out.write(line);
-				} else {
-					out.write("\n" + line);
-				}
+				out.write(line + "\n");
 			}
 		} catch (IOException e) {
 			Log.log(e.getMessage());
@@ -121,13 +116,8 @@ public class Writing {
 			out = new BufferedWriter(new FileWriter(this.file));
 			
 			if (file.remove(name)) {
-				int i = 0;
 				for (String line : file) {
-					if (i == 0) {
-						out.write(line);
-					} else {
-						out.write("\n" + line);
-					}
+					out.write(line + "\n");
 				}
 			}
 			
