@@ -92,12 +92,14 @@ public class Reading {
 		
 		try {
 			file = getExistingFileLines();
-			String line = null;
 			int i = 0;
+			String line = file.get(i);
+			
 			while (!line.equals(BasicCheck.HEADERstats)) {
-				line = file.get(i);
 				i++;
+				line = file.get(i);
 			}
+			i++;
 			
 			if (i <= file.size() - x) i = file.size() - x;
 			
