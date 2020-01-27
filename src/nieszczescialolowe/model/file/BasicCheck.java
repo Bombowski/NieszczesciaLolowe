@@ -12,7 +12,7 @@ public class BasicCheck {
 
 	protected static final String HEADERchamps = "<Champions>";
 	protected static final String HEADERgames = "<Games>";
-	protected static final String HEADERstats = "Date,Champion,lane,kda,win/lose,time,afks";
+	protected static final String HEADERstats = "Date,Champion,Lane,KdaCss,Win/Lose,Time,Afks,Grade";
 	
 	/**
 	 * Oddaje tylko true jesli ma odpowiedni format

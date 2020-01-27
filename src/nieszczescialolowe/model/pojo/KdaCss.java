@@ -2,25 +2,27 @@ package nieszczescialolowe.model.pojo;
 
 import nieszczescialolowe.view.Window;
 
-public class Kda {
+public class KdaCss {
 
 	private int kill;
 	private int dead;
 	private int assist;
+	private int css;
 	
-	public Kda(int kill, int dead, int assist) {
+	public KdaCss(int kill, int dead, int assist, int css) {
 		this.kill = kill;
 		this.dead = dead;
 		this.assist = assist;
+		this.css = css;
 	}
 	
-	public Kda(String line) {
+	public KdaCss(String line) {
 		csvToGame(line);
 	}
 	
 	@Override
 	public String toString() {
-		return kill + "/" + dead + "/" + assist;
+		return kill + "/" + dead + "/" + assist + "/" + css;
 	}
 	
     /**
@@ -33,16 +35,16 @@ public class Kda {
     	try {
 	    	String[] split = kda.split("/");
 	    	
-	    	if (split.length == 3) {
+	    	if (split.length == 4) {
 	    		for (String str : split) {
 	    			int value = Integer.parseInt(str);
-					if (value > 99 || value < 0) {
-						window.showError("Kda has to be between 0 and 99");
+					if (value < 0) {
+						window.showError("Kda must be higher than 0");
 						return false;
 					}
 				}
 	    	} else {
-	    		window.showError("Please use the following format for the kda textfield: x/x/x");
+	    		window.showError("Please use the following format for the kda textfield: x/x/x/x");
 	    		return false;
 	    	}
     	} catch (NumberFormatException nfe) {
@@ -59,6 +61,8 @@ public class Kda {
 		kill = Integer.parseInt(split[0]);
 		dead = Integer.parseInt(split[1]);
 		assist = Integer.parseInt(split[2]);
+		css = Integer.parseInt(split[3]);
+		
 	}
 	
 	public int getKill() {
@@ -83,5 +87,13 @@ public class Kda {
 	
 	public void setAssist(int assist) {
 		this.assist = assist;
+	}
+	
+	public int getCSs() {
+		return css;
+	}
+	
+	public void setCss(int css) {
+		this.css = css;
 	}
 }

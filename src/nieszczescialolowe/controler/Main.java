@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 import javax.swing.JButton;
 
@@ -59,53 +60,76 @@ public class Main implements ActionListener {
         try {
 	        switch (btn.getText()) {
 	        	case "Add game":
-		        	Game game = window.getGame();
-		        	
-		        	if (game.getChampion() == null) {
-		        		window.showError("First you need to add a champion");
-		        		return;
-		        	}
-		        	
-		        	if (game.getKda() != null) {
-		        		Log.log("Adding: " + game);
-		        		fm.addGame(game);
-		        	}
-		        	break;
-		        	
+	        		addGame();
+	            	break;
 		        case "Delete last game":
-		        	fm.deleteLastGame();
+		        	delLastGame();
 		        	break;
 		        	
 		        case "Add champion":
-		        	// pytam jaka nazwe ma champ
-		        	String name = window.showWindowGetChampName();
-		        	
-		        	// sprawdzam czy jest valid
-		        	if (name == null || name.equals("")) {
-		        		window.showError("Invalid champion name");
-		        		return;
-		        	}
-		        	
-		        	if (fm.addChampion(name)) {
-			        	window.addChamp(name);
-		        	}
-		        	
+		        	addChamp();
 		        	break;
 		        	
 		        case "Delete champion":
-		        	Game game2 = window.getGame();
-		        	
-		        	if (game2.getChampion() == null) {
-		        		window.showError("First you need to add a champion");
-		        		return;
-		        	}
-		        	
-		        	window.removeSelectedChamp();
-		        	
-		        	fm.deleteChampion(game2.getChampion());
+		        	delChamp();
 	        }
         } catch (IOException ie) {
         	Log.log(ie.getMessage());
         }
+    }
+    
+    private void addGame() throws IOException {
+    	Game game = window.getGame();
+    	
+    	if (game.getChampion() == null) {
+    		window.showError("First you need to add a champion");
+    		return;
+    	} else if (!Pattern.matches("^(\\d{1,2}\\/\\d{1,2}\\/\\d{1,2}\\/\\d{1,3})$", game.getKdaCss().toString())) {
+    		window.showError("Use the following format for the kda css textfield: x/x/x/x");
+    		return;
+    	} else if (!Pattern.matches("^((S|A|B|C|D)(\\+|-)?)$", game.getGrade())) {
+    		window.showError("Unvalid grade, valid grades are: +/- S-A-B-C-D");
+    		return;
+    	} else if (!Pattern.matches("^(\\d{1,2}:\\d{1,2}:\\d{1,2})$", game.getTime())) {
+    		window.showError("Use the following format for the time textfield: x:x:x");
+    		return;
+    	} else if (game.getKdaCss() == null) {
+    		return;
+    	}
+    	
+		Log.log("Adding: " + game);
+		fm.addGame(game);	    	
+    }
+    
+    private void delLastGame() throws IOException {
+    	fm.deleteLastGame();
+    }
+    
+    private void addChamp() throws IOException {
+    	// pytam jaka nazwe ma champ
+    	String name = window.showWindowGetChampName();
+    	
+    	// sprawdzam czy jest valid
+    	if (name == null || name.equals("")) {
+    		window.showError("Invalid champion name");
+    		return;
+    	}
+    	
+    	if (fm.addChampion(name)) {
+        	window.addChamp(name);
+    	}
+    }
+    
+    private void delChamp() throws IOException {
+    	Game game2 = window.getGame();
+    	
+    	if (game2.getChampion() == null) {
+    		window.showError("First you need to add a champion");
+    		return;
+    	}
+    	
+    	window.removeSelectedChamp();
+    	
+    	fm.deleteChampion(game2.getChampion());
     }
 }

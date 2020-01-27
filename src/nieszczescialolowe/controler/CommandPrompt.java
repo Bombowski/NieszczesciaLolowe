@@ -10,7 +10,6 @@ import javax.swing.JTextField;
 import nieszczescialolowe.model.Log;
 import nieszczescialolowe.model.file.FileManaging;
 import nieszczescialolowe.model.pojo.Game;
-import nieszczescialolowe.model.pojo.Kda;
 import nieszczescialolowe.view.Window;
 
 public class CommandPrompt implements KeyListener {
@@ -33,7 +32,7 @@ public class CommandPrompt implements KeyListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-			pickFuncionFromCommand();
+			getFuntcionFromCommand();
 			txt.setText("");
 		}
 	}
@@ -41,7 +40,7 @@ public class CommandPrompt implements KeyListener {
 	@Override
 	public void keyReleased(KeyEvent e) {}
 	
-	private void pickFuncionFromCommand() {
+	private void getFuntcionFromCommand() {
 		String command[] = txt.getText().split(" ");
 		
 		if (command.length == 3 && command[1].equals("last")) {
@@ -58,6 +57,13 @@ public class CommandPrompt implements KeyListener {
 		}
 	}
 	
+	/**
+	 * TODO bedzie pokazywac liste comend
+	 */
+	private void help() {
+		
+	}
+	
 	private void listCommand(String command[]) {
 		try {
 			int noGames = Integer.parseInt(command[2]);
@@ -65,8 +71,12 @@ public class CommandPrompt implements KeyListener {
 			ArrayList<Game> tmp = fm.getTopXGames(noGames);
 			list = new ArrayList<Game>();
 			
-			for (int i = tmp.size() - 1; i >= noGames; i--) {
+			for (int i = tmp.size() - noGames; i < tmp.size(); i++) {
 				list.add(tmp.get(i));
+			}
+			
+			for (Game game : tmp) {
+				Log.log(game.toString());
 			}
 		} catch (NumberFormatException | IOException nfe) {
 			Log.log(nfe.getMessage());
@@ -74,38 +84,10 @@ public class CommandPrompt implements KeyListener {
 	}
 	
 	private void calculateAverege() {
-		int afks = 0;
-		int k = 0;
-		int d = 0;
-		int a = 0;
-		int w = 0;
-		int l = 0;
-		int top = 0;
-		int mid = 0;
-		int jun = 0;
-		int bot = 0;
-		int sup = 0;
 		
-		for (Game game : list) {
-			afks += game.getAfks();
-			
-			Kda kda = game.getKda();
-			k += kda.getKill();
-			d += kda.getDead();
-			a += kda.getAssist();
-			
-			w += game.getWinLose().equals("w") ? 1 : 0;
-			l += game.getWinLose().equals("l") ? 1 : 0;
-			
-			top += game.getWinLose().equals("top") ? 1 : 0;
-			mid += game.getWinLose().equals("mid") ? 1 : 0;
-			jun += game.getWinLose().equals("jun") ? 1 : 0;
-			bot += game.getWinLose().equals("bot") ? 1 : 0;
-			sup += game.getWinLose().equals("sup") ? 1 : 0;
-		}
 	}
 	
-	public ArrayList<Game> getList() {
+	public ArrayList<Game> getGameList() {
 		if (list == null) {
 			return new ArrayList<Game>();
 		}
