@@ -2,7 +2,6 @@ package nieszczescialolowe.controler;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.function.Consumer;
@@ -10,7 +9,6 @@ import java.util.regex.Pattern;
 
 import javax.swing.JTextField;
 
-import nieszczescialolowe.model.Log;
 import nieszczescialolowe.model.RegEx;
 import nieszczescialolowe.model.RegExFunctions;
 import nieszczescialolowe.model.file.FileManaging;
@@ -27,6 +25,8 @@ public class CommandPrompt implements KeyListener {
 	protected CommandPrompt(Window window, FileManaging fm) {
 		this.txt = window.getInputPanel();
 		this.fm = fm;
+		
+		RegExFunctions.fm = fm;
 		
 		window.addTxtActionListener(this);
 	}
@@ -68,32 +68,6 @@ public class CommandPrompt implements KeyListener {
 //		} else if (command[0].equals("today")) {
 //			
 //		}
-	}
-	
-	/**
-	 * TODO bedzie pokazywac liste comend
-	 */
-	private void help() {
-		
-	}
-	
-	private void listCommand(String command[]) {
-		try {
-			int noGames = Integer.parseInt(command[2]);
-			
-			ArrayList<Game> tmp = fm.getTopXGames(noGames);
-			list = new ArrayList<Game>();
-			
-			for (int i = tmp.size() - noGames; i < tmp.size(); i++) {
-				list.add(tmp.get(i));
-			}
-			
-			for (Game game : tmp) {
-				Log.log(game.toString());
-			}
-		} catch (NumberFormatException | IOException nfe) {
-			Log.log(nfe.getMessage());
-		}
 	}
 	
 	private void calculateAverege() {

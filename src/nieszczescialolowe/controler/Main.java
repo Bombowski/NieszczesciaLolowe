@@ -64,6 +64,7 @@ public class Main implements ActionListener {
 	            	break;
 		        case "Delete last game":
 		        	delLastGame();
+		        	Log.log("The last game was deleted");
 		        	break;
 		        	
 		        case "Add champion":
