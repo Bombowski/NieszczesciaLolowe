@@ -12,6 +12,7 @@ import javax.swing.JTextField;
 import nieszczescialolowe.model.RegEx;
 import nieszczescialolowe.model.RegExFunctions;
 import nieszczescialolowe.model.file.FileManaging;
+import nieszczescialolowe.model.pojo.Command;
 import nieszczescialolowe.model.pojo.Game;
 import nieszczescialolowe.view.Window;
 
@@ -46,45 +47,13 @@ public class CommandPrompt implements KeyListener {
 	public void keyReleased(KeyEvent e) {}
 	
 	private void getFunctionFromCommand() {
-		Hashtable<Pattern, Consumer<Object>> commands = RegEx.commands;
+		Hashtable<Command, Consumer<Object>> commands = RegEx.commands;
 		String command = txt.getText();
 		
-		for (Pattern reg : commands.keySet()) {
-			if (Pattern.matches(reg.toString(), command)) {
-				commands.get(reg).accept(command);
+		for (Command com : commands.keySet()) {
+			if (Pattern.matches(com.getPattern().toString(), command)) {
+				commands.get(com).accept(command);
 			}
 		}
-		
-		
-//		if (command.length == 3 && command[1].equals("last")) {
-//			if (command[0].equals("list")) {
-//				listCommand(command);
-//			} else if (command[0].equals("average")) {
-//				listCommand(command);
-//				calculateAverege();
-//			}
-//		} else if (command[0].equals("clear")) {
-//			
-//		} else if (command[0].equals("today")) {
-//			
-//		}
-	}
-	
-	private void calculateAverege() {
-		
-	}
-	
-	public ArrayList<Game> getGameList() {
-		if (list == null) {
-			return new ArrayList<Game>();
-		}
-		return list;
-	}
-	
-	public Game getAverage() {
-		if (average == null) {
-			return new Game();
-		}
-		return average;
 	}
 }

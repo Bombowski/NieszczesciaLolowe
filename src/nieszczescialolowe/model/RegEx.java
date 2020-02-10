@@ -2,6 +2,8 @@ package nieszczescialolowe.model;
 
 import java.util.regex.Pattern;
 
+import nieszczescialolowe.model.pojo.Command;
+
 import java.util.Hashtable;
 import java.util.function.Consumer;
 
@@ -9,18 +11,18 @@ public class RegEx {
 
 	private static final RegExFunctions FUNCTIONS = new RegExFunctions();
 	
-	public static final Hashtable<Pattern, Consumer<Object>> commands = new Hashtable<Pattern, Consumer<Object>>();
+	public static final Hashtable<Command, Consumer<Object>> commands = new Hashtable<Command, Consumer<Object>>();
 	
-	// pokazuje ostatnie x gier
-	private static final Pattern LIST_LAST_X = Pattern.compile("^(list last \\d+)$");
+	private static final Command LIST_LAST_X = 
+			new Command("list last X - Shows X last games", "^(list last \\d+)$");
 	static Consumer<Object> LIST_LAST_X_F = FUNCTIONS::listLastX;
 	
-	// czysci console
-	private static final Pattern CLEAR = Pattern.compile("^(clear)$");
+	private static final Command CLEAR = 
+			new Command("clear - Clears the console", "^(clear)$");
 	static Consumer<Object> CLEAR_F = FUNCTIONS::clear;
 	
-	// help to help xd
-	private static final Pattern HELP = Pattern.compile("^(help)$");
+	private static final Command HELP = 
+			new Command("help - Lists all commands", "^(help)$");
 	static Consumer<Object> HELP_F = FUNCTIONS::help;
 	
 	static {
