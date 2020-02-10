@@ -4,10 +4,15 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.function.Consumer;
+import java.util.regex.Pattern;
 
 import javax.swing.JTextField;
 
 import nieszczescialolowe.model.Log;
+import nieszczescialolowe.model.RegEx;
+import nieszczescialolowe.model.RegExFunctions;
 import nieszczescialolowe.model.file.FileManaging;
 import nieszczescialolowe.model.pojo.Game;
 import nieszczescialolowe.view.Window;
@@ -41,20 +46,24 @@ public class CommandPrompt implements KeyListener {
 	public void keyReleased(KeyEvent e) {}
 	
 	private void getFuntcionFromCommand() {
-		String command[] = txt.getText().split(" ");
+		Hashtable<Pattern, Consumer<Object>> idk = RegEx.idk;
 		
-		if (command.length == 3 && command[1].equals("last")) {
-			if (command[0].equals("list")) {
-				listCommand(command);
-			} else if (command[0].equals("average")) {
-				listCommand(command);
-				calculateAverege();
-			}
-		} else if (command[0].equals("clear")) {
-			
-		} else if (command[0].equals("today")) {
+		for (Pattern p : idk) {
 			
 		}
+		
+//		if (command.length == 3 && command[1].equals("last")) {
+//			if (command[0].equals("list")) {
+//				listCommand(command);
+//			} else if (command[0].equals("average")) {
+//				listCommand(command);
+//				calculateAverege();
+//			}
+//		} else if (command[0].equals("clear")) {
+//			
+//		} else if (command[0].equals("today")) {
+//			
+//		}
 	}
 	
 	/**
