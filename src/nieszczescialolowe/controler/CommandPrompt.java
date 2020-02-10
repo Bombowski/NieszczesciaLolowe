@@ -49,11 +49,11 @@ public class CommandPrompt implements KeyListener {
 		Hashtable<Pattern, Consumer<Object>> commands = RegEx.commands;
 		String command = txt.getText();
 		
-		commands.forEach((k,v) -> {
-			if (k.matcher(command) != null) {
-				v.accept(command);
+		for (Pattern reg : commands.keySet()) {
+			if (Pattern.matches(reg.toString(), command)) {
+				commands.get(reg).accept(command);
 			}
-		}); 
+		}
 		
 		
 //		if (command.length == 3 && command[1].equals("last")) {
