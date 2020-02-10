@@ -37,7 +37,7 @@ public class CommandPrompt implements KeyListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-			getFuntcionFromCommand();
+			getFunctionFromCommand();
 			txt.setText("");
 		}
 	}
@@ -45,12 +45,16 @@ public class CommandPrompt implements KeyListener {
 	@Override
 	public void keyReleased(KeyEvent e) {}
 	
-	private void getFuntcionFromCommand() {
-		Hashtable<Pattern, Consumer<Object>> idk = RegEx.idk;
+	private void getFunctionFromCommand() {
+		Hashtable<Pattern, Consumer<Object>> commands = RegEx.commands;
+		String command = txt.getText();
 		
-		for (Pattern p : idk) {
-			
-		}
+		commands.forEach((k,v) -> {
+			if (k.matcher(command) != null) {
+				v.accept(command);
+			}
+		}); 
+		
 		
 //		if (command.length == 3 && command[1].equals("last")) {
 //			if (command[0].equals("list")) {
