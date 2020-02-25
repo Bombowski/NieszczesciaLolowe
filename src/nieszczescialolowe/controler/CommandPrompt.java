@@ -47,7 +47,7 @@ public class CommandPrompt implements KeyListener {
 	public void keyReleased(KeyEvent e) {}
 	
 	private void getFunctionFromCommand() {
-		Hashtable<Command, Consumer<Object>> commands = RegEx.commands;
+		Hashtable<Command, Consumer<Object>> commands = RegEx.COMMANDS;
 		String command = txt.getText();
 		
 		for (Command com : commands.keySet()) {

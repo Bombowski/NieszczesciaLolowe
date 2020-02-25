@@ -21,29 +21,42 @@ public class Log {
 	}
 	
 	/**
-	 * Pokazuje wiadomosc w oknia loga
+	 * Pokazuje wiadomosc w oknie loga, co int chars znakow robi line break
 	 * 
 	 * @param msg String
 	 */
 	public static void log(String msg) {
+		log(msg, true);
+	}
+	
+	/**
+	 * Pokazuje wiadomosc w oknie loga, co int chars znakow robi line break
+	 * 
+	 * @param msg String
+	 * @param space boolean, oznacza czy po line breaku maja byc spacje
+	 */
+	public static void log(String msg, boolean space) {
+		final int chars = 70;
 		String text = txt.getText();
-		
-		// jesli wiadomosc jest za dluga rozdzielam ja
-		
+		String line = space ? "\n     " : "\n";
 		String full = msg;
 		msg = "";
 		
-		while (full.length() > 50) {
-			String tmp = full.substring(0,50);
-			full = full.substring(50);
+		// jesli wiadomosc jest za dluga rozdzielam ja
+		while (full.length() > chars) {
+			String tmp = full.substring(0,chars);
 			
-			if (msg.equals("")) {
-				msg = tmp; 	
+			if (tmp.contains("\n")) {
+				int lineB = tmp.indexOf("\n");
+				tmp = tmp.substring(0, lineB);
+				full = full.substring(lineB + 1);
 			} else {
-				msg = msg + "\n     " + tmp;
+				full = full.substring(chars);
 			}
+			
+			msg += addBreakContent(msg, tmp, line);
 		}
-		msg = msg + "\n     " + full;
+		msg += line + full;
 		
 		
 		// jesli log nie jest pusty dodaje enter
@@ -51,6 +64,14 @@ public class Log {
 			txt.setText(msg);
 		} else {
 			txt.setText(text + "\n" + msg);
+		}
+	}
+	
+	private static String addBreakContent(String msg, String tmp, String lineB) {
+		if (msg.equals("")) {
+			return tmp; 	
+		} else {
+			return lineB + tmp;
 		}
 	}
 	
