@@ -52,9 +52,9 @@ public class RegEx {
 	 * funkcja static initializuje sie sama
 	 */
 	static {
-		COMMANDS.put(LIST_LAST_X, LIST_LAST_X_F);
-		COMMANDS.put(CLEAR, CLEAR_F);
 		COMMANDS.put(HELP, HELP_F);
+		COMMANDS.put(CLEAR, CLEAR_F);
+		COMMANDS.put(LIST_LAST_X, LIST_LAST_X_F);
 		COMMANDS.put(AVERAGE_LAST_X, AVERAGE_LAST_X_F);
 	}
 }

@@ -10,6 +10,7 @@ import java.util.regex.Pattern;
 import javax.swing.JButton;
 
 import nieszczescialolowe.model.Log;
+import nieszczescialolowe.model.RegEx;
 import nieszczescialolowe.model.file.FileManaging;
 import nieszczescialolowe.model.pojo.Game;
 import nieszczescialolowe.view.Window;
@@ -48,6 +49,7 @@ public class Main implements ActionListener {
         
         // podaje klasie log panel w ktorym bedzie logowala
         Log.setTxt(window.getLogPanel());
+        Log.log("Type 'help' to show a list of commands.",true);
     }
 
     /**

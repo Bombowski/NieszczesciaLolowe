@@ -56,7 +56,7 @@ public class Log {
 			
 			msg += addBreakContent(msg, tmp, line);
 		}
-		msg += line + full;
+		msg += full;
 		
 		
 		// jesli log nie jest pusty dodaje enter
