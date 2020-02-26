@@ -32,38 +32,38 @@ public class Log {
 	/**
 	 * Pokazuje wiadomosc w oknie loga, co int chars znakow robi line break
 	 * 
-	 * @param msg String
+	 * @param toReturn String
 	 * @param space boolean, oznacza czy po line breaku maja byc spacje
 	 */
-	public static void log(String msg, boolean space) {
-		final int chars = 70;
+	public static void log(String full, boolean space) {
+		final int chars = 60;
 		String text = txt.getText();
 		String line = space ? "\n     " : "\n";
-		String full = msg;
-		msg = "";
+		String toReturn = "";
 		
 		// jesli wiadomosc jest za dluga rozdzielam ja
-		while (full.length() > chars) {
-			String tmp = full.substring(0,chars);
+		while (full.length() > 0) {
+			int total = full.length() < chars ? full.length() : chars;
+			String tmp = full.substring(0,total);
 			
 			if (tmp.contains("\n")) {
 				int lineB = tmp.indexOf("\n");
 				tmp = tmp.substring(0, lineB);
 				full = full.substring(lineB + 1);
 			} else {
-				full = full.substring(chars);
+				full = full.substring(total);
 			}
 			
-			msg += addBreakContent(msg, tmp, line);
+			toReturn += addBreakContent(toReturn, tmp, line);
 		}
-		msg += full;
+		toReturn += full;
 		
 		
 		// jesli log nie jest pusty dodaje enter
 		if (text.equals("")) {
-			txt.setText(msg);
+			txt.setText(toReturn);
 		} else {
-			txt.setText(text + "\n" + msg);
+			txt.setText(text + "\n\n" + toReturn);
 		}
 	}
 	
