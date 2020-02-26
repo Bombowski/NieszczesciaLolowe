@@ -1,30 +1,36 @@
-package nieszczescialolowe.model;
+package nieszczescialolowe.model.regexp;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.function.Consumer;
+import java.util.Collections;
 
+import nieszczescialolowe.model.Log;
+import nieszczescialolowe.model.RegEx;
 import nieszczescialolowe.model.file.FileManaging;
 import nieszczescialolowe.model.pojo.Command;
 import nieszczescialolowe.model.pojo.Game;
 
-public class RegExFunctions {
-	
-	public static FileManaging fm;
+/**
+ * @author Patryk
+ *
+ * ogolne funkcje
+ */
+public class RegExOther {
 
-	protected RegExFunctions() {
+	private FileManaging fm;
+	
+	protected RegExOther(FileManaging fm) {
+		this.fm = fm;
 	}
 	
-	protected void clear(Object x) {
-		Log.clearLog();
-	}
-	
-	protected void help(Object x) {
-		Hashtable<Command, Consumer<Object>> commands = RegEx.COMMANDS;
-		StringBuilder sb = new StringBuilder();	
+	public void help(Object x) {
+		// Wstawiam hashtable do arraylista, i sortuje liste alfabetycznie 
+		ArrayList<Command> sorted = Collections.list(RegEx.COMMANDS.keys());
+		Collections.sort(sorted);
 		
-		for (Command com : commands.keySet()) {
+		StringBuilder sb = new StringBuilder();
+		
+		for (Command com : sorted) {
 			sb.append(com.getDescription())
 				.append("\n");
 		}
@@ -32,7 +38,11 @@ public class RegExFunctions {
 		Log.log(sb.toString(),false);
 	}
 	
-	protected void listLastX(Object x) {
+	public void clear(Object x) {
+		Log.clearLog();
+	}
+	
+	public void listLastX(Object x) {
 		try {
 			String command[] = x.toString().split(" ");
 			int noGames = Integer.parseInt(command[2]);
@@ -47,7 +57,7 @@ public class RegExFunctions {
 		}
 	}
 	
-	protected void averageLastX(Object x) {
+	public void averageStatsX(Object x) {
 		try {
 			String command[] = x.toString().split(" ");
 			int noGames = Integer.parseInt(command[2]);
@@ -63,5 +73,9 @@ public class RegExFunctions {
 		} catch (NumberFormatException | IOException nfe) {
 			Log.log(nfe.getMessage());
 		}
+	}
+	
+	public void averageStats(Object x) {
+		
 	}
 }

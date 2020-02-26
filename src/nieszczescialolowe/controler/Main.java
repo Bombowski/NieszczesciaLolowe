@@ -80,6 +80,12 @@ public class Main implements ActionListener {
         }
     }
     
+    /**
+     * Zdobywa dane gry, sprawdza czy sa poprawne, i jesli tak,
+     * zapisuje gre
+     * 
+     * @throws IOException
+     */
     private void addGame() throws IOException {
     	Game game = window.getGame();
     	
@@ -103,10 +109,20 @@ public class Main implements ActionListener {
 		fm.addGame(game);	    	
     }
     
+    /**
+     * Usuwa gre
+     * 
+     * @throws IOException
+     */
     private void delLastGame() throws IOException {
     	fm.deleteLastGame();
     }
     
+    /**
+     * Dodaje championa
+     * 
+     * @throws IOException
+     */
     private void addChamp() throws IOException {
     	// pytam jaka nazwe ma champ
     	String name = window.showWindowGetChampName();
@@ -122,6 +138,11 @@ public class Main implements ActionListener {
     	}
     }
     
+    /**
+     * Usuwa championa
+     * 
+     * @throws IOException
+     */
     private void delChamp() throws IOException {
     	Game game2 = window.getGame();
     	
