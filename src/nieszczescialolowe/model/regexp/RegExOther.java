@@ -49,8 +49,8 @@ public class RegExOther {
 			
 			ArrayList<Game> tmp = fm.getTopXGames(noGames);
 			
-			for (int i=0; i<tmp.size(); i++) {
-				Log.log(tmp.get(i).toString());
+			for (Game game : tmp) {
+				Log.log(game.toString());
 			}
 		} catch (NumberFormatException | IOException nfe) {
 			Log.log(nfe.getMessage());
