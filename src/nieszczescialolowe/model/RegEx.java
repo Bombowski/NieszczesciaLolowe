@@ -4,11 +4,11 @@ import java.util.Hashtable;
 import java.util.function.Consumer;
 
 import nieszczescialolowe.model.pojo.Command;
-import nieszczescialolowe.model.regexp.RegExFunctions;
+import nieszczescialolowe.model.regexp.Commands;
 
 public class RegEx {
 
-	private static final RegExFunctions FUNCTIONS = new RegExFunctions();
+	private static final Commands FUNCTIONS = new Commands();
 	public static final Hashtable<Command, Consumer<Object>> COMMANDS = 
 			new Hashtable<Command, Consumer<Object>>();
 	

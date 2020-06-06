@@ -25,6 +25,16 @@ public class Game {
 		this.grade = grade;
 	}
 	
+	public Game(KdaCss kdaCss, String champion, String lane, String time, String winLose, String grade, int afks) {
+		this.kdaCss = kdaCss;
+		this.champion = champion;
+		this.lane = lane;
+		this.time = time;
+		this.winLose = winLose;
+		this.afks = afks;
+		this.grade = grade;
+	}
+	
 	public Game() {}
 
 	@Override

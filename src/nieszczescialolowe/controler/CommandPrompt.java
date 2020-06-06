@@ -11,7 +11,7 @@ import javax.swing.JTextField;
 import nieszczescialolowe.model.RegEx;
 import nieszczescialolowe.model.file.FileManaging;
 import nieszczescialolowe.model.pojo.Command;
-import nieszczescialolowe.model.regexp.RegExFunctions;
+import nieszczescialolowe.model.regexp.Commands;
 import nieszczescialolowe.view.Window;
 
 public class CommandPrompt implements KeyListener {
@@ -21,7 +21,7 @@ public class CommandPrompt implements KeyListener {
 	protected CommandPrompt(Window window, FileManaging fm) {
 		this.txt = window.getInputPanel();
 		
-		RegExFunctions.setFm(fm);
+		Commands.setFm(fm);
 		
 		window.addTxtActionListener(this);
 	}

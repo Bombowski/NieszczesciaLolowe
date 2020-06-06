@@ -3,12 +3,15 @@ package nieszczescialolowe.model.regexp;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Hashtable;
+import java.util.Map.Entry;
 
 import nieszczescialolowe.model.Log;
 import nieszczescialolowe.model.RegEx;
 import nieszczescialolowe.model.file.FileManaging;
 import nieszczescialolowe.model.pojo.Command;
 import nieszczescialolowe.model.pojo.Game;
+import nieszczescialolowe.model.pojo.Stats;
 
 /**
  * @author Patryk
@@ -18,9 +21,11 @@ import nieszczescialolowe.model.pojo.Game;
 public class RegExOther {
 
 	private FileManaging fm;
+	private RegExFunctions ref;
 	
 	protected RegExOther(FileManaging fm) {
 		this.fm = fm;
+		this.ref = new RegExFunctions();
 	}
 	
 	public void help(Object x) {
@@ -62,14 +67,9 @@ public class RegExOther {
 			String command[] = x.toString().split(" ");
 			int noGames = Integer.parseInt(command[2]);
 			
-			ArrayList<Game> tmp = fm.getTopXGames(noGames);
+			Stats st = ref.getAverageStats(fm.getTopXGames(noGames));
 			
-			/*
-			 * TODO duzo roboty tak ogolnie, zrobic tutaj jakies
-			 * obliczenia srednich statystyk, takie ez rzeczy jak kda css
-			 * po najczesciej grany czempion, srednia ocena, etc
-			 */
-			Log.log("TODO");
+			Log.log(st.toString());
 		} catch (NumberFormatException | IOException nfe) {
 			Log.log(nfe.getMessage());
 		}

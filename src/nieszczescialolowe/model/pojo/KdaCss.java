@@ -9,6 +9,8 @@ public class KdaCss {
 	private int assist;
 	private int css;
 	
+	public KdaCss() {}
+	
 	public KdaCss(int kill, int dead, int assist, int css) {
 		this.kill = kill;
 		this.dead = dead;

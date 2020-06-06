@@ -1,72 +1,123 @@
 package nieszczescialolowe.model.regexp;
 
-import nieszczescialolowe.model.file.FileManaging;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map.Entry;
 
+import nieszczescialolowe.model.pojo.Game;
+import nieszczescialolowe.model.pojo.KdaCss;
+import nieszczescialolowe.model.pojo.Stats;
+
+/**
+ * @author Patryk
+ *
+ * Tutaj bedziemy wstawiac rozne funkcje uzywane przez funkcje komend
+ */
 public class RegExFunctions {
-	
-	private static FileManaging fm;
-	private static RegExOther other;
-	private static RegExLane lane;
-	private static RegExChamp champ;
-	
-	public RegExFunctions() {}
-	
-	public static void setFm(FileManaging fmNew) {
-		fm = fmNew;
-		other = new RegExOther(fm);
-		lane = new RegExLane(fm);
-		champ = new RegExChamp(fm);
+
+	protected Stats getAverageStats(ArrayList<Game> games) {
+		Game toReturn = new Game(new KdaCss(), "", "", "0:0:0", "", "", 2);
+		KdaCss kdac = new KdaCss(0, 0, 0, 0);
+
+		HashMap<String, Integer> champions = new HashMap<String, Integer>();
+		HashMap<String, Integer> grade = new HashMap<String, Integer>();
+		HashMap<String, Integer> lane = new HashMap<String, Integer>();
+		HashMap<String, Integer> winLose = new HashMap<String, Integer>();
+		winLose.put("win", 0);
+
+		for (Game game : games) {
+			KdaCss tmp = game.getKdaCss();
+			kdac.setKill(kdac.getKill() + tmp.getKill());
+			kdac.setDead(kdac.getDead() + tmp.getDead());
+			kdac.setAssist(kdac.getAssist() + tmp.getAssist());
+			kdac.setCss(kdac.getCSs() + tmp.getCSs());
+
+			toReturn.setAfks(toReturn.getAfks() + game.getAfks());
+			toReturn.setTime(addTime(game.getTime(), toReturn.getTime()));
+
+			champions.put(game.getChampion(), add2HashTable(champions, game.getChampion()));
+			grade.put(game.getGrade(), add2HashTable(grade, game.getGrade()));
+			lane.put(game.getLane(), add2HashTable(lane, game.getLane()));
+			winLose.put(game.getWinLose(), add2HashTable(winLose, game.getWinLose()));
+		}
+		
+		Stats s = new Stats();
+		int size = games.size();
+		s.setAfks(toReturn.getAfks() / size);
+		s.setChampion(getMax(champions));
+		s.setChampionPercent(getPercent(champions.get(getMax(champions)), size));
+		s.setGrade(getMax(grade));
+		s.setGradePercent(getPercent(grade.get(getMax(grade)), size));
+		s.setKdaCss(avgKdaCss(kdac, size));
+		s.setLane(getMax(lane));
+		s.setLanePercent(getPercent(lane.get(getMax(lane)), size));
+		s.setTime(avgTime(toReturn.getTime(), size));
+		s.setWinLosePercent(winLose.get("W"));
+
+		return s;
 	}
 	
-	public void help(Object x) {
-		other.help(x);
+	private float getPercent(int num, int size) {
+		return num / size * 100;
 	}
 	
-	public void clear(Object x) {
-		other.clear(x);
+	private String avgTime(String time, int size) {
+		String[] split = time.split(":");
+		
+		int seconds = (Integer.parseInt(split[0]) + (Integer.parseInt(split[1]) * 60) + 
+				(Integer.parseInt(split[2]) * 60 * 60)) / size;
+		
+		split[0] = (seconds % 60 / 60) + "";
+		split[1] = (seconds % 60) + "";
+		split[2] = (seconds / 60) + "";
+		
+		return splitTime2Str(split);
+	}
+
+	private KdaCss avgKdaCss(KdaCss kdac, int size) {
+		kdac.setKill(kdac.getKill() / size);
+		kdac.setDead(kdac.getDead() / size);
+		kdac.setAssist(kdac.getAssist() / size);
+		kdac.setCss(kdac.getCSs() / size);
+		
+		return kdac;
 	}
 	
-	public void listLastX(Object x) {
-		other.listLastX(x);
+	private String getMax(HashMap<String, Integer> map) {
+		int max = 0;
+		String maxS = "";
+		for (Entry<String, Integer> entry : map.entrySet()) {
+			if (entry.getValue() > max) {
+				maxS = entry.getKey();
+			}
+		}
+		return maxS;
 	}
 	
-	public void averageStatsX(Object x) {
-		other.averageStatsX(x);
+	private Integer add2HashTable(HashMap<String, Integer> map, String key) {
+		return map.containsKey(key) ? map.get(key) + 1 : 1;
+	}
+
+	private String addTime(String time, String oldTime) {
+		String[] oldT = oldTime.split(":");
+		String[] newT = time.split(":");
+
+		int n1 = Integer.parseInt(oldT[0]) + Integer.parseInt(newT[0]);
+		int n2 = Integer.parseInt(oldT[1]) + Integer.parseInt(newT[1]);
+		int n3 = Integer.parseInt(oldT[2]) + Integer.parseInt(newT[2]);
+
+		String[] arr = {n1 + "", n2 + "", n3 + ""};
+		
+		return splitTime2Str(arr);
 	}
 	
-	public void averageStats(Object x) {
-		other.averageStats(x);
-	}
-	
-	public void mostPlayedChamp(Object x) {
-		champ.mostPlayedChamp(x);
-	}
-	
-	public void mostPlayedChampX(Object x) {
-		champ.mostPlayedChampX(x);
-	}
-	
-	public void averageStatsChamp(Object x) {
-		champ.averageStatsChamp(x);
-	}
-	
-	public void averageStatsChampX(Object x) {
-		champ.averageStatsChampX(x);
-	}
-	
-	public void averageStatsLane(Object x) {
-		lane.averageStatsLane(x);
-	}
-	
-	public void averageStatsLaneX(Object x) {
-		lane.averageStatsLaneX(x);
-	}
-	
-	public void mostPlayedLane(Object x) {
-		lane.mostPlayedLane(x);
-	}
-	
-	public void mostPlayedLaneX(Object x) {
-		lane.mostPlayedLaneX(x);
+	private String splitTime2Str(String[] splitTime) {
+		return new StringBuilder()
+				.append(splitTime[0])
+				.append(":")
+				.append(splitTime[1])
+				.append(":")
+				.append(splitTime[2])
+				.toString();
 	}
 }

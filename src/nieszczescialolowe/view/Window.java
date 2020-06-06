@@ -346,10 +346,8 @@ public class Window extends JFrame {
 			String name = chooser.getSelectedFile().getName();
 
 			// sprawdzam nazwe
-			if (name.substring(name.lastIndexOf(".")).equals(".csv")) {
+			if (name.substring(name.lastIndexOf('.')).equals(".csv")) {
 				return chooser.getSelectedFile().getPath();
-			} else {
-				return "";
 			}
 		}
 		return "";
@@ -361,9 +359,7 @@ public class Window extends JFrame {
 	 * @return Stromg
 	 */
 	public String showWindowGetChampName() {
-		String name = JOptionPane.showInputDialog(this, "Champion name");
-
-		return name;
+		return JOptionPane.showInputDialog(this, "Champion name");
 	}
 
 	/**
