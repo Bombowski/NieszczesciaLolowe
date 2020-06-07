@@ -40,9 +40,37 @@ public class Stats {
 
 	@Override
 	public String toString() {
-		return "Stats [kdaCss=" + kdaCss + ", champion=" + champion + ", championPercent=" + championPercent + ", lane="
-				+ lane + ", lanePercent=" + lanePercent + ", winLosePercent=" + winLosePercent + ", time=" + time
-				+ ", grade=" + grade + ", gradePercent=" + gradePercent + ", afks=" + afks + "]";
+		return new StringBuilder()
+				.append("Average KDACss - ")
+				.append(kdaCss.toString())
+				.append("\n")
+				.append("Most played champion - ")
+				.append(champion)
+				.append("\n")
+				.append("Most played champion pickrate - ")
+				.append(championPercent)
+				.append("\n")
+				.append("Most played lane - ")
+				.append(lane)
+				.append("\n")
+				.append("Most played lane % - ")
+				.append(lanePercent)
+				.append("\n")
+				.append("Win ratio - ")
+				.append(winLosePercent)
+				.append("\n")
+				.append("Average game time - ")
+				.append(time)
+				.append("\n")
+				.append("Most often grade - ")
+				.append(grade)
+				.append("\n")
+				.append("Most often grade % - ")
+				.append(gradePercent)
+				.append("\n")
+				.append("Average afk's - ")
+				.append(afks)
+				.toString();
 	}
 
 	public KdaCss getKdaCss() {
