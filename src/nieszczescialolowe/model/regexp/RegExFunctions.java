@@ -16,6 +16,10 @@ import nieszczescialolowe.model.pojo.Stats;
 public class RegExFunctions {
 
 	protected Stats getAverageStats(ArrayList<Game> games) {
+		if (games.size() == 0) {
+			return new Stats(0);
+		}
+		
 		Game toReturn = new Game(new KdaCss(), "", "", "0:0:0", "", "", 2);
 		KdaCss kdac = new KdaCss(0, 0, 0, 0);
 
@@ -43,7 +47,7 @@ public class RegExFunctions {
 		
 		Stats s = new Stats();
 		int size = games.size();
-		s.setAfks(toReturn.getAfks() / size);
+		s.setAfks(toReturn.getAfks() / Float.parseFloat(size + ""));
 		s.setChampion(getMax(champions));
 		s.setChampionPercent(getPercent(champions.get(getMax(champions)), size));
 		s.setGrade(getMax(grade));
@@ -52,13 +56,13 @@ public class RegExFunctions {
 		s.setLane(getMax(lane));
 		s.setLanePercent(getPercent(lane.get(getMax(lane)), size));
 		s.setTime(avgTime(toReturn.getTime(), size));
-		s.setWinLosePercent(winLose.get("W"));
+		s.setWinLosePercent(getPercent(winLose.get("W"), size));
 
 		return s;
 	}
 	
 	private float getPercent(int num, int size) {
-		return num / size * 100;
+		return num * 100 / size;
 	}
 	
 	private String avgTime(String time, int size) {
@@ -89,6 +93,7 @@ public class RegExFunctions {
 		for (Entry<String, Integer> entry : map.entrySet()) {
 			if (entry.getValue() > max) {
 				maxS = entry.getKey();
+				max = entry.getValue();
 			}
 		}
 		return maxS;
