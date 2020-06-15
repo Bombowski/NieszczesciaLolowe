@@ -16,6 +16,11 @@ import nieszczescialolowe.model.pojo.Stats;
 public class RegExFunctions {
 
 	protected Stats getAverageStats(ArrayList<Game> games) {
+		if (games.size() == 0) {
+			return new Stats(0);
+		}
+		
+		Game toReturn = new Game(new KdaCss(), "", "", "0:0:0", "", "", 2);
 		int afks = 0;
 		String time = "0:0:0";
 		KdaCss kdac = new KdaCss(0, 0, 0, 0);
@@ -44,7 +49,7 @@ public class RegExFunctions {
 		
 		Stats s = new Stats();
 		int size = games.size();
-		s.setAfks(Math.round((float)afks / size * 100f) / 100f);
+		s.setAfks(toReturn.getAfks() / Float.parseFloat(size + ""));
 		s.setChampion(getMax(champions));
 		s.setChampionPercent(getPercent(champions.get(getMax(champions)), size));
 		s.setGrade(getMax(grade));

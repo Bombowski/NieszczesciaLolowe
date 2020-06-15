@@ -33,6 +33,20 @@ public class Stats {
 		this.gradePercent = gradePercent;
 		this.afks = afks;
 	}
+	
+	public Stats(int zero) {
+		String none = "none";
+		this.kdaCss = new KdaCss();
+		this.champion = none;
+		this.championPercent = 0;
+		this.lane = none;
+		this.lanePercent = 0;
+		this.winLosePercent = 0;
+		this.time = none;
+		this.grade = none;
+		this.gradePercent = 0;
+		this.afks = 0;
+	}
 
 	public Stats() {
 		super();
