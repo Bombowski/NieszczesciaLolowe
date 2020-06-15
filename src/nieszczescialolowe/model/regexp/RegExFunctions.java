@@ -16,14 +16,15 @@ import nieszczescialolowe.model.pojo.Stats;
 public class RegExFunctions {
 
 	protected Stats getAverageStats(ArrayList<Game> games) {
-		Game toReturn = new Game(new KdaCss(), "", "", "0:0:0", "", "", 2);
+		int afks = 0;
+		String time = "0:0:0";
 		KdaCss kdac = new KdaCss(0, 0, 0, 0);
 
 		HashMap<String, Integer> champions = new HashMap<String, Integer>();
 		HashMap<String, Integer> grade = new HashMap<String, Integer>();
 		HashMap<String, Integer> lane = new HashMap<String, Integer>();
 		HashMap<String, Integer> winLose = new HashMap<String, Integer>();
-		winLose.put("win", 0);
+		winLose.put("W", 0);
 
 		for (Game game : games) {
 			KdaCss tmp = game.getKdaCss();
@@ -32,8 +33,8 @@ public class RegExFunctions {
 			kdac.setAssist(kdac.getAssist() + tmp.getAssist());
 			kdac.setCss(kdac.getCSs() + tmp.getCSs());
 
-			toReturn.setAfks(toReturn.getAfks() + game.getAfks());
-			toReturn.setTime(addTime(game.getTime(), toReturn.getTime()));
+			afks += game.getAfks();
+			time = addTime(game.getTime(), time);
 
 			champions.put(game.getChampion(), add2HashTable(champions, game.getChampion()));
 			grade.put(game.getGrade(), add2HashTable(grade, game.getGrade()));
@@ -43,7 +44,7 @@ public class RegExFunctions {
 		
 		Stats s = new Stats();
 		int size = games.size();
-		s.setAfks(toReturn.getAfks() / size);
+		s.setAfks(Math.round((float)afks / size * 100f) / 100f);
 		s.setChampion(getMax(champions));
 		s.setChampionPercent(getPercent(champions.get(getMax(champions)), size));
 		s.setGrade(getMax(grade));
@@ -51,25 +52,25 @@ public class RegExFunctions {
 		s.setKdaCss(avgKdaCss(kdac, size));
 		s.setLane(getMax(lane));
 		s.setLanePercent(getPercent(lane.get(getMax(lane)), size));
-		s.setTime(avgTime(toReturn.getTime(), size));
-		s.setWinLosePercent(winLose.get("W"));
+		s.setTime(avgTime(time, size));
+		s.setWinLosePercent(getPercent(winLose.get("W"), size));
 
 		return s;
 	}
 	
 	private float getPercent(int num, int size) {
-		return num / size * 100;
+		return Math.round((float)num / size * 100f * 100f) / 100f;
 	}
 	
 	private String avgTime(String time, int size) {
 		String[] split = time.split(":");
 		
-		int seconds = (Integer.parseInt(split[0]) + (Integer.parseInt(split[1]) * 60) + 
-				(Integer.parseInt(split[2]) * 60 * 60)) / size;
+		int seconds = (Integer.parseInt(split[2]) + (Integer.parseInt(split[1]) * 60) + 
+				(Integer.parseInt(split[0]) * 60 * 60)) / size;
 		
-		split[0] = (seconds % 60 / 60) + "";
-		split[1] = (seconds % 60) + "";
-		split[2] = (seconds / 60) + "";
+		split[0] = (seconds / 3600) + "";
+		split[1] = (seconds / 60 % 60) + "";
+		split[2] = (seconds % 60) + "";
 		
 		return splitTime2Str(split);
 	}
@@ -89,6 +90,7 @@ public class RegExFunctions {
 		for (Entry<String, Integer> entry : map.entrySet()) {
 			if (entry.getValue() > max) {
 				maxS = entry.getKey();
+				max = entry.getValue();
 			}
 		}
 		return maxS;
