@@ -48,7 +48,7 @@ public class RegEx {
 	private static Consumer<Object> AVERAGE_STATS_X_F = FUNCTIONS::averageStatsX;
 	
 	private static final Command AVERAGE_STATS =
-			new Command("average game - Shows the average statistics from all games", "^(average game \\d+)$");
+			new Command("average game - Shows the average statistics from all games", "^(average game)$");
 	private static Consumer<Object> AVERAGE_STATS_F = FUNCTIONS::averageStats;
 	
 	private static final Command MOST_PLAYED_CHAMP =

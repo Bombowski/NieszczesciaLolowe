@@ -3,8 +3,6 @@ package nieszczescialolowe.model.regexp;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Hashtable;
-import java.util.Map.Entry;
 
 import nieszczescialolowe.model.Log;
 import nieszczescialolowe.model.RegEx;
@@ -76,6 +74,12 @@ public class RegExOther {
 	}
 	
 	public void averageStats(Object x) {
-//		fm.getTopXGames(-1);
+		try {
+			Stats st = ref.getAverageStats(fm.getTopXGames(-1));
+			
+			Log.log(st.toString());
+		} catch (NumberFormatException | IOException nfe) {
+			Log.log(nfe.getMessage());
+		}
 	}
 }

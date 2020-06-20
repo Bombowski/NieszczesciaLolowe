@@ -81,7 +81,7 @@ public class Reading {
 	}
 	
 	/**
-	 * Oddaje liste X ostatnich gier
+	 * Oddaje liste X ostatnich gier (komentarze w funkcji zsuplajowane przez bumboxa)
 	 * 
 	 * @return
 	 * @throws IOException 
@@ -91,18 +91,25 @@ public class Reading {
 		ArrayList<String> file = null;
 		
 		try {
+			// zdobywa caly plik
 			file = getExistingFileLines();
 			int i = 0;
 			String line = file.get(i);
 			
+			// czyta az znajdzie header gier
 			while (!line.equals(BasicCheck.HEADERstats)) {
 				i++;
 				line = file.get(i);
 			}
+			// dodaje 1 zeby nastepnie czytac liste gier
 			i++;
 			
-			if (i <= file.size() - x) i = file.size() - x;
+			// najnowsze gry sa na koncu, wiec ustawia i na pozycji x od konca
+			if (x > -1 && i <= file.size() - x) {
+				i = file.size() - x;
+			}
 			
+			// czyta i zapisuje gry w liscie
 			while (i < file.size()) {
 				line = file.get(i);
 				Game newGame = new Game();
@@ -113,8 +120,7 @@ public class Reading {
 			
 		} catch(IOException e) {
 			Log.log(e.getMessage());
-		}
-		
+		}		
 		
 		return list;
 	}

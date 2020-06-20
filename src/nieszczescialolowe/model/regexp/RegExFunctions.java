@@ -20,7 +20,6 @@ public class RegExFunctions {
 			return new Stats(0);
 		}
 		
-		Game toReturn = new Game(new KdaCss(), "", "", "0:0:0", "", "", 2);
 		int afks = 0;
 		String time = "0:0:0";
 		KdaCss kdac = new KdaCss(0, 0, 0, 0);
@@ -49,7 +48,7 @@ public class RegExFunctions {
 		
 		Stats s = new Stats();
 		int size = games.size();
-		s.setAfks(toReturn.getAfks() / Float.parseFloat(size + ""));
+		s.setAfks(Math.round((float)afks / (float)size * 100f) / 100f);
 		s.setChampion(getMax(champions));
 		s.setChampionPercent(getPercent(champions.get(getMax(champions)), size));
 		s.setGrade(getMax(grade));
@@ -64,7 +63,7 @@ public class RegExFunctions {
 	}
 	
 	private float getPercent(int num, int size) {
-		return Math.round((float)num / size * 100f * 100f) / 100f;
+		return Math.round(((float)num * 100f / (float)size) * 100f) / 100f;
 	}
 	
 	private String avgTime(String time, int size) {
