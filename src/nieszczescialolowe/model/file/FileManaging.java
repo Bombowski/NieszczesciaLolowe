@@ -54,7 +54,7 @@ public class FileManaging {
 	}
 	
 	/**
-	 * Zdobywa ostatnie x gier
+	 * Zdobywa ostatnie x gier. -1 zeby zdobyc wszystkie gry.
 	 * 
 	 * @param x int
 	 * @return ArrayList<Game>

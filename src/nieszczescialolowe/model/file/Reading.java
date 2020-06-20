@@ -81,9 +81,19 @@ public class Reading {
 	}
 	
 	/**
+	 * Oddaje wszystkie gry w pliku
+	 * 
+	 * @return ArrayList<Game>
+	 * @throws IOException
+	 */
+	protected ArrayList<Game> getAllGames() throws IOException {
+		return getLastGames(-1);
+	}
+	
+	/**
 	 * Oddaje liste X ostatnich gier (komentarze w funkcji zsuplajowane przez bumboxa)
 	 * 
-	 * @return
+	 * @return ArrayList<Game>
 	 * @throws IOException 
 	 */
 	protected ArrayList<Game> getLastGames(int x) throws IOException {

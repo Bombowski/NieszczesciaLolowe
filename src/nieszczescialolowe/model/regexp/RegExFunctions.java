@@ -14,59 +14,21 @@ import nieszczescialolowe.model.pojo.Stats;
  * Tutaj bedziemy wstawiac rozne funkcje uzywane przez funkcje komend
  */
 public class RegExFunctions {
-
-	protected Stats getAverageStats(ArrayList<Game> games) {
-		if (games.size() == 0) {
-			return new Stats(0);
-		}
-		
-		int afks = 0;
-		String time = "0:0:0";
-		KdaCss kdac = new KdaCss(0, 0, 0, 0);
-
-		HashMap<String, Integer> champions = new HashMap<String, Integer>();
-		HashMap<String, Integer> grade = new HashMap<String, Integer>();
-		HashMap<String, Integer> lane = new HashMap<String, Integer>();
-		HashMap<String, Integer> winLose = new HashMap<String, Integer>();
-		winLose.put("W", 0);
-
-		for (Game game : games) {
-			KdaCss tmp = game.getKdaCss();
-			kdac.setKill(kdac.getKill() + tmp.getKill());
-			kdac.setDead(kdac.getDead() + tmp.getDead());
-			kdac.setAssist(kdac.getAssist() + tmp.getAssist());
-			kdac.setCss(kdac.getCSs() + tmp.getCSs());
-
-			afks += game.getAfks();
-			time = addTime(game.getTime(), time);
-
-			champions.put(game.getChampion(), add2HashTable(champions, game.getChampion()));
-			grade.put(game.getGrade(), add2HashTable(grade, game.getGrade()));
-			lane.put(game.getLane(), add2HashTable(lane, game.getLane()));
-			winLose.put(game.getWinLose(), add2HashTable(winLose, game.getWinLose()));
-		}
-		
-		Stats s = new Stats();
-		int size = games.size();
-		s.setAfks(Math.round((float)afks / (float)size * 100f) / 100f);
-		s.setChampion(getMax(champions));
-		s.setChampionPercent(getPercent(champions.get(getMax(champions)), size));
-		s.setGrade(getMax(grade));
-		s.setGradePercent(getPercent(grade.get(getMax(grade)), size));
-		s.setKdaCss(avgKdaCss(kdac, size));
-		s.setLane(getMax(lane));
-		s.setLanePercent(getPercent(lane.get(getMax(lane)), size));
-		s.setTime(avgTime(time, size));
-		s.setWinLosePercent(getPercent(winLose.get("W"), size));
-
-		return s;
-	}
 	
-	private float getPercent(int num, int size) {
+	public RegExFunctions() {}
+	
+	/**
+	 * Returns the percentage with 2 decimals at most
+	 * 
+	 * @param num int how many was repeated
+	 * @param size total number
+	 * @return float
+	 */
+	protected float getPercent(int num, int size) {
 		return Math.round(((float)num * 100f / (float)size) * 100f) / 100f;
 	}
 	
-	private String avgTime(String time, int size) {
+	protected String avgTime(String time, int size) {
 		String[] split = time.split(":");
 		
 		int seconds = (Integer.parseInt(split[2]) + (Integer.parseInt(split[1]) * 60) + 
@@ -79,7 +41,7 @@ public class RegExFunctions {
 		return splitTime2Str(split);
 	}
 
-	private KdaCss avgKdaCss(KdaCss kdac, int size) {
+	protected KdaCss avgKdaCss(KdaCss kdac, int size) {
 		kdac.setKill(kdac.getKill() / size);
 		kdac.setDead(kdac.getDead() / size);
 		kdac.setAssist(kdac.getAssist() / size);
@@ -88,7 +50,7 @@ public class RegExFunctions {
 		return kdac;
 	}
 	
-	private String getMax(HashMap<String, Integer> map) {
+	protected String getMax(HashMap<String, Integer> map) {
 		int max = 0;
 		String maxS = "";
 		for (Entry<String, Integer> entry : map.entrySet()) {
@@ -100,11 +62,19 @@ public class RegExFunctions {
 		return maxS;
 	}
 	
-	private Integer add2HashTable(HashMap<String, Integer> map, String key) {
+	/**
+	 * Znajduje w podanym HashMapie value za pomoca key'a, jesli
+	 * nie istnieje, oddaje 1, jesli tak, value + 1.
+	 * 
+	 * @param map HashMap
+	 * @param key String
+	 * @return Integer
+	 */
+	protected Integer add2HashTable(HashMap<String, Integer> map, String key) {
 		return map.containsKey(key) ? map.get(key) + 1 : 1;
 	}
 
-	private String addTime(String time, String oldTime) {
+	protected String addTime(String time, String oldTime) {
 		String[] oldT = oldTime.split(":");
 		String[] newT = time.split(":");
 
@@ -117,7 +87,7 @@ public class RegExFunctions {
 		return splitTime2Str(arr);
 	}
 	
-	private String splitTime2Str(String[] splitTime) {
+	protected String splitTime2Str(String[] splitTime) {
 		return new StringBuilder()
 				.append(splitTime[0])
 				.append(":")
