@@ -33,8 +33,8 @@ public class RegExChamp {
 			int selectedNoGames = Integer.parseInt(x.toString().split(" ")[3]);
 			// zdobywam liste gier
 			ArrayList<Game> games = fm.getTopXGames(selectedNoGames);
-			// zapisuje lokalnie ilosc itemow w liscie gier
-			int gamesSize = games.size();
+			selectedNoGames = selectedNoGames < 0 ? games.size() : selectedNoGames;
+			
 			// robie hihihi wiadomosc jesli wybrano 0
 			if (selectedNoGames == 0) {
 				Log.log("Ehm you selected 0 games...");
@@ -42,15 +42,8 @@ public class RegExChamp {
 			}
 			
 			HashMap<String, Integer> champs = new HashMap<String, Integer>();
-			Game game;
-			// obliczam ile gier nie zostalo wybranych
-			int noGames = gamesSize - selectedNoGames;
-			// jesli zostalo wybranych za duzo lub mniej niz 1 setuje na 0
-			noGames = noGames < 1 || noGames >= gamesSize ? 0 : noGames;
 			
-			// zdobywam gry z listy i zapisuje championy w hashmaie
-			for (; noGames < gamesSize; noGames++) {
-				game = games.get(noGames);
+			for (Game game : games) {
 				champs.put(game.getChampion(), ref.add2HashTable(champs, game.getChampion()));
 			}
 			

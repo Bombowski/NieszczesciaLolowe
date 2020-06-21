@@ -10,6 +10,23 @@ import javax.swing.JTextArea;
 public class Log {
 
 	private static JTextArea txt;
+	// 0 = default, 1 = tests 
+	private static int mode = 0;
+	private static String testResult;
+	
+	/**
+	 * Changes the mode at which the class is running.
+	 * 0 = default, 1 = tests
+	 * 
+	 * @param mode int
+	 */
+	public static void setMode(int mode) {
+		Log.mode = mode < 0 || mode > 1 ? 0 : mode;
+	}
+	
+	public static String getLog() {
+		return Log.testResult;
+	}
 	
 	/**
 	 * Inicializacja JTextArea
@@ -37,7 +54,7 @@ public class Log {
 	 */
 	public static void log(String full, boolean space) {
 		final int chars = 60;
-		String text = txt.getText();
+		String text = Log.mode == 0 ? txt.getText() : "";
 		String line = space ? "\n     " : "\n";
 		String toReturn = "";
 		
@@ -58,7 +75,11 @@ public class Log {
 		}
 		toReturn += full;
 		
-		
+		// jesli jestem teraz w modzie test, zapisuje rezultat do logowania
+		if (Log.mode == 1) {
+			testResult = toReturn;
+			return;
+		}
 		// jesli log nie jest pusty dodaje enter
 		if (text.equals("")) {
 			txt.setText(toReturn);
@@ -75,7 +96,15 @@ public class Log {
 		}
 	}
 	
+	/**
+	 * Clear the console, if the mode is set to tests, the test variable gets cleared
+	 */
 	public static void clearLog() {
-		txt.setText("");
+		if (mode == 1) {
+			testResult = "";
+			return;
+		}
+		
+		txt.setText("");		
 	}
 }

@@ -2,7 +2,7 @@ package nieszczescialolowe.controler;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.Hashtable;
+import java.util.Map.Entry;
 import java.util.function.Consumer;
 import java.util.regex.Pattern;
 
@@ -41,12 +41,11 @@ public class CommandPrompt implements KeyListener {
 	public void keyReleased(KeyEvent e) {}
 	
 	private void getFunctionFromCommand() {
-		Hashtable<Command, Consumer<Object>> commands = RegEx.COMMANDS;
 		String command = txt.getText();
 		
-		for (Command com : commands.keySet()) {
-			if (Pattern.matches(com.getPattern().toString(), command)) {
-				commands.get(com).accept(command);
+		for (Entry<Command, Consumer<Object>> entry : RegEx.COMMANDS.entrySet()) {
+			if (Pattern.matches(entry.getKey().getPattern().toString(), command)) {
+				entry.getValue().accept(command);
 			}
 		}
 	}
