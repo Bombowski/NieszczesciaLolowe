@@ -5,8 +5,6 @@ import static org.junit.Assert.assertEquals;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import nieszczescialolowe.model.Log;
-
 public class TestRegExOther {
 
 	@BeforeClass
@@ -16,27 +14,49 @@ public class TestRegExOther {
 	
 	@Test
 	public void test() {
-		Tests.runCommand("help","");
-		
 		StringBuilder sb = new StringBuilder()
-				.append("average champ X - Shows the average statistics of x champion")
-				.append("average game - Shows the average statistics from all games") 
-				.append("average game X - Shows the average statistics from last X ga") 
-				.append("mes")
-				.append("average lane X - shows average stats from x lane")
-				.append("average lane X Y - shows average stats in x lane from last y") 
-				.append(" games")
-				.append("clear - Clears the console") 
-				.append("help - Lists all commands") 
-				.append("list last X - Shows X last games") 
-				.append("most played champ - Shows the most played champ in any lane") 
-				.append("most played champ x - Shows the most played champ in the las") 
-				.append("t x games")
-				.append("most played lane - shows the most played lane from all games")
-				.append("most played lane X - shows the most played lane from last x ") 
+				.append("average champ X - Shows the average statistics of x champion\n\n")
+				.append("average game - Shows the average statistics from all games\n")
+				.append("average game X - Shows the average statistics from last X ga\n")
+				.append("mes\n")
+				.append("average lane X - shows average stats from x lane\n")
+				.append("average lane X Y - shows average stats in x lane from last y\n")
+				.append(" games\nclear - Clears the console\nhelp - Lists all commands\n")
+				.append("list last X - Shows X last games\n")
+				.append("most played champ - Shows the most played champ in any lane\n")
+				.append("most played champ x - Shows the most played champ in the las\n")
+				.append("t x games\n")
+				.append("most played lane - shows the most played lane from all games\n\n")
+				.append("most played lane X - shows the most played lane from last x \n")
 				.append("games");
 		
-		assertEquals(sb.toString(), Log.getLog());
+		assertEquals(sb.toString(), Tests.runCommand("help"));
 	}
 
+	@Test
+	public void clear() {
+		assertEquals("", Tests.runCommand("clear"));
+	}
+	
+	@Test
+	public void listLastX() {
+		StringBuilder sb = new StringBuilder()
+				.append("[kda/css: 5/6/6/253 ; champion: Maokai ; lane: Top ; time: 0\n     :33:05 ; win/lose: L ; afks: 2 ; grade: B]\n")
+				.append("     [kda/css: 8/5/8/363 ; champion: Maokai ; lane: Top ; time: 0\n     :41:05 ; win/lose: L ; afks: 1 ; grade: C]\n")
+				.append("     [kda/css: 9/3/5/294 ; champion: Fizz ; lane: Mid ; time: 0:3\n     7:05 ; win/lose: W ; afks: 0 ; grade: S]\n")
+				.append("     [kda/css: 14/4/7/256 ; champion: Fizz ; lane: Mid ; time: 0:\n     52:55 ; win/lose: W ; afks: 0 ; grade: S]\n")
+				.append("     [kda/css: 11/4/13/463 ; champion: Fizz ; lane: Mid ; time: 1\n     :01:05 ; win/lose: W ; afks: 0 ; grade: S]");
+
+		assertEquals(sb.toString(), Tests.runCommand("list last 5"));
+	}
+	
+	@Test
+	public void averageStatsX() {
+		
+	}
+	
+	@Test
+	public void averageStats() {
+		
+	}
 }

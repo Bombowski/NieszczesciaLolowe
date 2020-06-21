@@ -15,11 +15,17 @@ import nieszczescialolowe.model.file.FileManaging;
 import nieszczescialolowe.model.pojo.Command;
 import nieszczescialolowe.model.regexp.Commands;
 
+/**
+ * @author Patryk
+ *
+ * Ta classe odpalamy kiedy chcemy runowac testy, jesli chcemy dodac wiecej class z testami,
+ * dodajemy je do notacji SuiteClasses.
+ */
 @RunWith(Suite.class)
 @SuiteClasses({TestRegExChamp.class, TestRegExOther.class, TestRegExLane.class })
 public class Tests {
 
-	private static String path = "C:\\Users\\patry\\Documents\\lol.csv";
+	private static String path = "src\\test\\testFile.csv";
 	protected static FileManaging fm;
 	protected static Commands com;
 	
@@ -31,11 +37,12 @@ public class Tests {
 		Commands.setFm(fm);
 	}
 	
-	protected static void runCommand(String command, String input) {
+	protected static String runCommand(String command) {
 		for (Entry<Command, Consumer<Object>> entry : RegEx.COMMANDS.entrySet()) {
 			if (Pattern.matches(entry.getKey().getPattern().toString(), command)) {
-				entry.getValue().accept(input);
+				entry.getValue().accept(command);
 			}
 		}
+		return Log.getLog();
 	}
 }

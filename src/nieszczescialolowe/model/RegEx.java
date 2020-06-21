@@ -91,7 +91,7 @@ public class RegEx {
 	/**
 	 * tutaj dodajemy object Command jako key, y Consumer jako
 	 * value do hashtable'a.
-	 * funkcja static initializuje sie sama
+	 * funkcja static inicjalizuje sie sama
 	 */
 	static {
 		COMMANDS.put(HELP, HELP_F);

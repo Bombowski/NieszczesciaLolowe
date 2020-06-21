@@ -53,10 +53,14 @@ public class RegExOther {
 			int noGames = Integer.parseInt(command[2]);
 			
 			ArrayList<Game> tmp = fm.getTopXGames(noGames);
+			StringBuilder sb = new StringBuilder();
 			
 			for (Game game : tmp) {
-				Log.log(game.toString());
+				sb.append(game.toString())
+					.append("\n");
 			}
+			
+			Log.log(sb.toString());
 		} catch (NumberFormatException | IOException nfe) {
 			Log.log(nfe.getMessage());
 		}

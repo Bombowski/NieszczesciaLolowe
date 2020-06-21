@@ -43,11 +43,7 @@ public class Log {
 	 * @param msg String
 	 */
 	public static void log(String msg) {
-		if (Log.mode == 0) {
-			log(msg, true);
-		} else {
-			testResult = msg;
-		}
+		log(msg, true);
 	}
 	
 	/**
@@ -79,9 +75,10 @@ public class Log {
 		}
 		toReturn += full;
 		
-		
+		// jesli jestem teraz w modzie test, zapisuje rezultat do logowania
 		if (Log.mode == 1) {
-			Log.log(toReturn);
+			testResult = toReturn;
+			return;
 		}
 		// jesli log nie jest pusty dodaje enter
 		if (text.equals("")) {
@@ -99,7 +96,15 @@ public class Log {
 		}
 	}
 	
+	/**
+	 * Clear the console, if the mode is set to tests, the test variable gets cleared
+	 */
 	public static void clearLog() {
-		txt.setText("");
+		if (mode == 1) {
+			testResult = "";
+			return;
+		}
+		
+		txt.setText("");		
 	}
 }

@@ -18,7 +18,7 @@ public class RegExFunctions {
 	public RegExFunctions() {}
 	
 	/**
-	 * Returns the percentage with 2 decimals at most
+	 * Oddaje procent z maksymalnie 2 decimalsami
 	 * 
 	 * @param num int how many was repeated
 	 * @param size total number
