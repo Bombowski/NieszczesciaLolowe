@@ -49,12 +49,12 @@ public class RegEx {
 	private static Consumer<Object> LIST_LAST_X_F = FUNCTIONS::listLastX;
 	
 	// done
-	private static final Command AVERAGE_STATS_X =
+	private static final Command AVERAGE_GAME_X =
 			new Command("average game X - Shows the average statistics from last X games", "^(average game \\d+)$");
 	private static Consumer<Object> AVERAGE_STATS_X_F = FUNCTIONS::averageStatsX;
 	
 	// done
-	private static final Command AVERAGE_STATS =
+	private static final Command AVERAGE_GAME =
 			new Command("average game - Shows the average statistics from all games", "^(average game)$");
 	private static Consumer<Object> AVERAGE_STATS_F = FUNCTIONS::averageStats;
 	
@@ -97,8 +97,8 @@ public class RegEx {
 		COMMANDS.put(HELP, HELP_F);
 		COMMANDS.put(CLEAR, CLEAR_F);
 		COMMANDS.put(LIST_LAST_X, LIST_LAST_X_F);
-		COMMANDS.put(AVERAGE_STATS_X, AVERAGE_STATS_X_F);
-		COMMANDS.put(AVERAGE_STATS, AVERAGE_STATS_F);
+		COMMANDS.put(AVERAGE_GAME_X, AVERAGE_STATS_X_F);
+		COMMANDS.put(AVERAGE_GAME, AVERAGE_STATS_F);
 		COMMANDS.put(MOST_PLAYED_CHAMP, MOST_PLAYED_CHAMP_F);
 		COMMANDS.put(MOST_PLAYED_CHAMP_X, MOST_PLAYED_CHAMP_X_F);
 		COMMANDS.put(AVERAGE_STATS_CHAMP, AVERAGE_STATS_CHAMP_F);

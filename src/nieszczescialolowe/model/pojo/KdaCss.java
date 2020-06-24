@@ -24,7 +24,15 @@ public class KdaCss {
 	
 	@Override
 	public String toString() {
-		return kill + "/" + dead + "/" + assist + "/" + css;
+		return new StringBuilder()
+				.append(kill)
+				.append("/")
+				.append(dead) 
+				.append("/")
+				.append(assist) 
+				.append("/")
+				.append(css)
+				.toString();
 	}
 	
     /**

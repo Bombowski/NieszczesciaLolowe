@@ -66,7 +66,7 @@ public class RegExOther {
 		}
 	}
 	
-	public void averageStatsX(Object x) {
+	public void averageGameX(Object x) {
 		try {
 			String command[] = x.toString().split(" ");
 			int noGames = Integer.parseInt(command[2]);
@@ -122,6 +122,6 @@ public class RegExOther {
 	}
 	
 	public void averageStats(Object x) {
-		averageStatsX(x.toString() + "-1");
+		averageGameX(x.toString() + "-1");
 	}
 }

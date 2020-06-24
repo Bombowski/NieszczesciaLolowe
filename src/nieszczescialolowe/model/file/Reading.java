@@ -128,7 +128,9 @@ public class Reading {
 				i++;
 			}
 			
-		} catch(IOException e) {
+		} catch (IOException e) {
+			Log.log(e.getMessage());
+		} catch (Exception e) {
 			Log.log(e.getMessage());
 		}		
 		

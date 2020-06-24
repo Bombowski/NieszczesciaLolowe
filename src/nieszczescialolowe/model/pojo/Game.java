@@ -7,6 +7,7 @@ package nieszczescialolowe.model.pojo;
  */
 public class Game {
 
+	private final int noParams = 8;
 	private KdaCss kdaCss;
 	private String champion;
 	private String lane;
@@ -39,8 +40,23 @@ public class Game {
 
 	@Override
 	public String toString() {
-		return "[kda/css: " + kdaCss + " ; champion: " + champion + " ; lane: " + lane + 
-				" ; time: " + time + " ; win/lose: " + winLose + " ; afks: " + afks + " ; grade: " + grade + "]";
+		return new StringBuilder()
+				.append("[kda/css: ") 
+				.append(kdaCss)
+				.append(" ; champion: ") 
+				.append(champion)
+				.append(" ; lane: ") 
+				.append(lane)
+				.append(" ; time: ") 
+				.append(time)
+				.append(" ; win/lose: ") 
+				.append(winLose)
+				.append(" ; afks: ") 
+				.append(afks)
+				.append(" ; grade: ") 
+				.append(grade) 
+				.append("]")
+				.toString();
 	}
 	
 	/**
@@ -49,17 +65,36 @@ public class Game {
 	 * @return String
 	 */
 	public String stringToCsv() {
-		return champion + "," + lane + "," + kdaCss + "," + winLose + "," + time + "," + afks + "," + grade;
+		return new StringBuilder()
+				.append(champion) 
+				.append(",")
+				.append(lane) 
+				.append(",")
+				.append(kdaCss) 
+				.append(",")
+				.append(winLose) 
+				.append(",")
+				.append(time) 
+				.append(",")
+				.append(afks) 
+				.append(",")
+				.append(grade)
+				.toString();
 	}
 	
 	/**
 	 * Zamienia linie z pliku csv w parametry objectu Game i odrazu je setuje.
 	 * 
 	 * @param line String
+	 * @throws Exception 
 	 */
-	public void csvToGame(String line) {
+	public void csvToGame(String line) throws Exception {
 		String split[] = line.split(",");
 
+		if (split.length != 8) {
+			throw new Exception("One of the entry's in your file has an unvalid format");
+		}
+		
 		this.champion = split[1];
 		this.lane = split[2];
 		this.kdaCss = new KdaCss(split[3]);

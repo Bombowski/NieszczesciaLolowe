@@ -18,8 +18,12 @@ import nieszczescialolowe.model.regexp.Commands;
 /**
  * @author Patryk
  *
- * Ta classe odpalamy kiedy chcemy runowac testy, jesli chcemy dodac wiecej class z testami,
+ * Te classe odpalamy kiedy chcemy runowac testy, jesli chcemy dodac wiecej class z testami,
  * dodajemy je do notacji SuiteClasses.
+ * 
+ * Tests that test console output, must use a StringBuilder object for the expected result,
+ * and line in console must be one line of append() method. The purpose of this is readability,
+ * and it will also make easier changing these tests in the future.
  */
 @RunWith(Suite.class)
 @SuiteClasses({TestRegExChamp.class, TestRegExOther.class, TestRegExLane.class })

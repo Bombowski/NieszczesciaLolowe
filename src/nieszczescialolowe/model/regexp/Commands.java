@@ -31,7 +31,7 @@ public class Commands {
 	}
 	
 	public void averageStatsX(Object x) {
-		other.averageStatsX(x);
+		other.averageGameX(x);
 	}
 	
 	public void averageStats(Object x) {
