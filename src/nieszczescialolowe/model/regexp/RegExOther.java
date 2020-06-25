@@ -122,6 +122,6 @@ public class RegExOther {
 	}
 	
 	public void averageStats(Object x) {
-		averageGameX(x.toString() + "-1");
+		averageGameX(x.toString() + " -1");
 	}
 }

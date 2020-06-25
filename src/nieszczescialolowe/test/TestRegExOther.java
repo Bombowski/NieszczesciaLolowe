@@ -59,7 +59,7 @@ public class TestRegExOther {
 	}
 
 	@Test
-	public void averageStatsX() {
+	public void averageGameX() {
 		assertEquals(
 				new StringBuilder()
 					.append("Average KDACss - 8/6/12/260\n     Most played champion - Fizz\n     Most played champion pickrate - 57.89\n     ")
@@ -69,7 +69,20 @@ public class TestRegExOther {
 	}
 
 	@Test
-	public void averageStats() {
-
+	public void averageGame() {
+		assertEquals(
+				new StringBuilder()
+					.append("Average KDACss - 8/6/12/260\n     ")
+					.append("Most played champion - Fizz\n     ")
+					.append("Most played champion pickrate - 57.89\n     ")
+					.append("Most played lane - Mid\n     ")
+					.append("Most played lane % - 63.16\n     ")
+					.append("Win ratio - 63.16\n     ")
+					.append("Average game time - 0:41:25\n     ")
+					.append("Most often grade - S\n     ")
+					.append("Most often grade % - 31.58\n     ")
+					.append("Average afk's - 0.63")
+					.toString(), 
+				Tests.runCommand("average game"));
 	}
 }
