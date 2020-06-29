@@ -13,8 +13,7 @@ public class TestRegExOther {
 	}
 
 	@Test
-	public void test() {
-
+	public void help() {
 		assertEquals(
 				new StringBuilder()
 					.append("average champ X - Shows the average statistics of x champion\n\n")

@@ -97,7 +97,8 @@ public class Log {
 	}
 	
 	/**
-	 * Clear the console, if the mode is set to tests, the test variable gets cleared
+	 * Czysci konsole, jesli Log jest w modzie testowym, zmienna testResult 
+	 * zostaje wyczyszczona
 	 */
 	public static void clearLog() {
 		if (mode == 1) {

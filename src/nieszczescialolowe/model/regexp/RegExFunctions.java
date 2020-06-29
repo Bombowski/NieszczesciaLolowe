@@ -1,12 +1,9 @@
 package nieszczescialolowe.model.regexp;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
-import nieszczescialolowe.model.pojo.Game;
 import nieszczescialolowe.model.pojo.KdaCss;
-import nieszczescialolowe.model.pojo.Stats;
 
 /**
  * @author Patryk

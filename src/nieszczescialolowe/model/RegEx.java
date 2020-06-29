@@ -65,7 +65,7 @@ public class RegEx {
 	
 	// done
 	private static final Command MOST_PLAYED_CHAMP_X =
-			new Command("most played champ x - Shows the most played champ in the last x games", "^(most played champ \\d+)$");
+			new Command("most played champ x - Shows the most played champ in the last x games", "^(most played champ -?\\d+)$");
 	private static Consumer<Object> MOST_PLAYED_CHAMP_X_F = FUNCTIONS::mostPlayedChampX;
 	
 	private static final Command AVERAGE_STATS_CHAMP =

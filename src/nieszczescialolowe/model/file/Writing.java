@@ -95,7 +95,7 @@ public class Writing {
 	}
 	
 	/**
-	 * Usuwa ostatniom gre z ArrayList<String> file
+	 * Usowa ostatnia gre z ArrayList<String> file
 	 * 
 	 * @param file ArrayList<String>
 	 * @throws IOException

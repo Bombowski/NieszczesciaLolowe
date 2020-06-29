@@ -64,7 +64,7 @@ public class FileManaging {
 		ArrayList<String> file = in.getExistingFileLines(); 
 		
 		if (BasicCheck.basicCheck(file)) {
-			return in.getLastGames(x);
+			return in.getLastGames(x, file);
 		} else {
 			out.createDocFormat();
 			return new ArrayList<Game>();

@@ -87,7 +87,7 @@ public class Reading {
 	 * @throws IOException
 	 */
 	protected ArrayList<Game> getAllGames() throws IOException {
-		return getLastGames(-1);
+		return getLastGames(-1, getExistingFileLines());
 	}
 	
 	/**
@@ -96,13 +96,10 @@ public class Reading {
 	 * @return ArrayList<Game>
 	 * @throws IOException 
 	 */
-	protected ArrayList<Game> getLastGames(int x) throws IOException {
+	protected ArrayList<Game> getLastGames(int x, ArrayList<String> file) throws IOException {
 		ArrayList<Game> list = new ArrayList<Game>();
-		ArrayList<String> file = null;
 		
 		try {
-			// zdobywa caly plik
-			file = getExistingFileLines();
 			int i = 0;
 			String line = file.get(i);
 			
