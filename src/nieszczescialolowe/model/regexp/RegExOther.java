@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
-import nieszczescialolowe.model.Log;
 import nieszczescialolowe.model.RegEx;
 import nieszczescialolowe.model.file.FileManaging;
 import nieszczescialolowe.model.pojo.Command;
@@ -28,7 +27,7 @@ public class RegExOther {
 		this.ref = new RegExFunctions();
 	}
 	
-	public void help(Object x) {
+	public String help(Object x) {
 		// Wstawiam hashtable do arraylista, i sortuje liste alfabetycznie 
 		ArrayList<Command> sorted = Collections.list(RegEx.COMMANDS.keys());
 		Collections.sort(sorted);
@@ -40,14 +39,10 @@ public class RegExOther {
 				.append("\n");
 		}
 		
-		Log.log(sb.toString(),false);
+		return sb.toString();
 	}
 	
-	public void clear(Object x) {
-		Log.clearLog();
-	}
-	
-	public void listLastX(Object x) {
+	public String listLastX(Object x) {
 		try {
 			String command[] = x.toString().split(" ");
 			int noGames = Integer.parseInt(command[2]);
@@ -60,20 +55,20 @@ public class RegExOther {
 					.append("\n");
 			}
 			
-			Log.log(sb.toString());
+			return sb.toString();
 		} catch (NumberFormatException | IOException nfe) {
-			Log.log(nfe.getMessage());
+			return nfe.getMessage();
 		}
 	}
 	
-	public void averageGameX(Object x) {
+	public String averageGameX(Object x) {
 		try {
 			String command[] = x.toString().split(" ");
 			int noGames = Integer.parseInt(command[2]);
 			ArrayList<Game> games = fm.getTopXGames(noGames);
 			
 			if (games.size() == 0) {
-				return;
+				return "No games found";
 			}
 			
 			int afks = 0;
@@ -115,13 +110,13 @@ public class RegExOther {
 			s.setTime(ref.avgTime(time, size));
 			s.setWinLosePercent(ref.getPercent(winLose.get("W"), size));
 
-			Log.log(s.toString());
+			return s.toString();
 		} catch (NumberFormatException | IOException nfe) {
-			Log.log(nfe.getMessage());
+			return nfe.getMessage();
 		}
 	}
 	
-	public void averageStats(Object x) {
-		averageGameX(x.toString() + " -1");
+	public String averageStats(Object x) {
+		return averageGameX(x.toString() + " -1");
 	}
 }

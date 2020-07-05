@@ -18,55 +18,55 @@ public class Commands {
 		champ = new RegExChamp(fm);
 	}
 	
-	public void help(Object x) {
-		other.help(x);
+	public String help(Object x) {
+		return other.help(x);
 	}
 	
-	public void clear(Object x) {
-		other.clear(x);
+	public String clear(Object x) {
+		return "cl";
 	}
 	
-	public void listLastX(Object x) {
-		other.listLastX(x);
+	public String listLastX(Object x) {
+		return other.listLastX(x);
 	}
 	
-	public void averageStatsX(Object x) {
-		other.averageGameX(x);
+	public String averageStatsX(Object x) {
+		return other.averageGameX(x);
 	}
 	
-	public void averageStats(Object x) {
-		other.averageStats(x);
+	public String averageStats(Object x) {
+		return other.averageStats(x);
 	}
 	
-	public void mostPlayedChamp(Object x) {
-		champ.mostPlayedChamp(x);
+	public String mostPlayedChamp(Object x) {
+		return champ.mostPlayedChamp(x);
 	}
 	
-	public void mostPlayedChampX(Object x) {
-		champ.mostPlayedChampX(x);
+	public String mostPlayedChampX(Object x) {
+		return champ.mostPlayedChampX(x);
 	}
 	
-	public void averageStatsChamp(Object x) {
-		champ.averageStatsChamp(x);
+	public String averageStatsChamp(Object x) {
+		return champ.averageStatsChamp(x);
 	}
 	
-	public void averageStatsChampX(Object x) {
-		champ.averageStatsChampX(x);
+	public String averageStatsChampX(Object x) {
+		return champ.averageStatsChampX(x);
 	}
 	
-	public void averageStatsLane(Object x) {
-		lane.averageStatsLane(x);
+	public String averageStatsLane(Object x) {
+		return lane.averageStatsLane(x);
 	}
 	
-	public void averageStatsLaneX(Object x) {
-		lane.averageStatsLaneX(x);
+	public String averageStatsLaneX(Object x) {
+		return lane.averageStatsLaneX(x);
 	}
 	
-	public void mostPlayedLane(Object x) {
-		lane.mostPlayedLane(x);
+	public String mostPlayedLane(Object x) {
+		return lane.mostPlayedLane(x);
 	}
 	
-	public void mostPlayedLaneX(Object x) {
-		lane.mostPlayedLaneX(x);
+	public String mostPlayedLaneX(Object x) {
+		return lane.mostPlayedLaneX(x);
 	}
 }

@@ -15,19 +15,19 @@ public class RegExLane {
 		this.fm = fm;
 	}
 	
-	public void averageStatsLane(Object x) {
-		
+	public String averageStatsLane(Object x) {
+		return "Not implemented yet";
 	}
 	
-	public void averageStatsLaneX(Object x) {
-		
+	public String averageStatsLaneX(Object x) {
+		return "Not implemented yet";
 	}
 	
-	public void mostPlayedLane(Object x) {
-		
+	public String mostPlayedLane(Object x) {
+		return "Not implemented yet";
 	}
 	
-	public void mostPlayedLaneX(Object x) {
-		
+	public String mostPlayedLaneX(Object x) {
+		return "Not implemented yet";
 	}
 }

@@ -23,11 +23,11 @@ public class RegExChamp {
 		this.ref = new RegExFunctions();
 	}
 	
-	public void mostPlayedChamp(Object x) {
-		mostPlayedChampX(x.toString().concat(" -1"));	
+	public String mostPlayedChamp(Object x) {
+		return mostPlayedChampX(x.toString().concat(" -1"));	
 	}
 	
-	public void mostPlayedChampX(Object x) {
+	public String mostPlayedChampX(Object x) {
 		try {
 			// zdobywam wybrana ilosc gier, -1 = wszystkie
 			int selectedNoGames = Integer.parseInt(x.toString().split(" ")[3]);
@@ -37,8 +37,7 @@ public class RegExChamp {
 			
 			// robie hihihi wiadomosc jesli wybrano 0
 			if (selectedNoGames == 0) {
-				Log.log("Ehm you selected 0 games...");
-				return;
+				return "Ehm you selected 0 games...";
 			}
 			
 			HashMap<String, Integer> champs = new HashMap<String, Integer>();
@@ -49,23 +48,23 @@ public class RegExChamp {
 			
 			// wybieram najczesciej granego champa i printuje
 			String champ = ref.getMax(champs);
-			Log.log(new StringBuilder()
+			return new StringBuilder()
 					.append("Most played champion: ")
 					.append(champ)
 					.append(" ; with a percentage of ")
 					.append(ref.getPercent(champs.get(champ), selectedNoGames))
 					.append("%")
-					.toString());
+					.toString();
 		} catch (IOException | NumberFormatException e) {
-			Log.log(e.getMessage());
+			return e.getMessage();
 		}
 	}
 	
-	public void averageStatsChamp(Object x) {
-		
+	public String averageStatsChamp(Object x) {
+		return "Not implemented yet";
 	}
 	
-	public void averageStatsChampX(Object x) {
-		
+	public String averageStatsChampX(Object x) {
+		return "Not implemented yet";
 	}
 }

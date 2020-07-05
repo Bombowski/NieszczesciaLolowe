@@ -1,7 +1,7 @@
 package nieszczescialolowe.test;
 
 import java.util.Map.Entry;
-import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.regex.Pattern;
 
 import org.junit.BeforeClass;
@@ -42,11 +42,11 @@ public class Tests {
 	}
 	
 	protected static String runCommand(String command) {
-		for (Entry<Command, Consumer<Object>> entry : RegEx.COMMANDS.entrySet()) {
+		for (Entry<Command, Function<Object, String>> entry : RegEx.COMMANDS.entrySet()) {
 			if (Pattern.matches(entry.getKey().getPattern().toString(), command)) {
-				entry.getValue().accept(command);
+				return entry.getValue().apply(command);
 			}
 		}
-		return Log.getLog();
+		return "Command not found";
 	}
 }
