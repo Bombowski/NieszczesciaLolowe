@@ -44,7 +44,8 @@ public class Tests {
 	protected static String runCommand(String command) {
 		for (Entry<Command, Function<Object, String>> entry : RegEx.COMMANDS.entrySet()) {
 			if (Pattern.matches(entry.getKey().getPattern().toString(), command)) {
-				return entry.getValue().apply(command);
+				Log.log(entry.getValue().apply(command));
+				return Log.getLog();
 			}
 		}
 		return "Command not found";

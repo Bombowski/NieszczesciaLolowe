@@ -1,8 +1,11 @@
 package nieszczescialolowe.view;
 
 import java.awt.Dialog;
+import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
+import java.awt.font.FontRenderContext;
+import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 
 import javax.swing.DefaultComboBoxModel;
@@ -34,6 +37,11 @@ import nieszczescialolowe.model.pojo.KdaCss;
  */
 public class Window extends JFrame {
 
+
+	private final static AffineTransform AF = new AffineTransform();     
+	private final static FontRenderContext FRC = new FontRenderContext(AF,true,true);     
+	private final static Font FONT = new Font("Tahoma", Font.PLAIN, 11);
+	
 	private static final long serialVersionUID = 1L;
 	private JButton btnAddChamp;
 	private JButton btnAddGame;
@@ -436,5 +444,9 @@ public class Window extends JFrame {
 	 */
 	public void removeSelectedChamp() {
 		cmbChamp.removeItemAt(cmbChamp.getSelectedIndex());
+	}
+	
+	public static int testMetrics(String text) {
+		return (int)(FONT.getStringBounds(text, FRC).getWidth());
 	}
 }

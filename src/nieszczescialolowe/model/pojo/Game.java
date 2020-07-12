@@ -91,7 +91,7 @@ public class Game {
 	public void csvToGame(String line) throws Exception {
 		String split[] = line.split(",");
 
-		if (split.length != 8) {
+		if (split.length != noParams) {
 			throw new Exception("One of the entry's in your file has an unvalid format");
 		}
 		

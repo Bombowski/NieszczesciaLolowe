@@ -49,7 +49,7 @@ public class CommandPrompt implements KeyListener {
 		Log.log(new StringBuilder()
 				.append(">")
 				.append(getCurrentTime())
-				.append(": ")
+				.append("- ")
 				.append(command)
 				.toString());
 		

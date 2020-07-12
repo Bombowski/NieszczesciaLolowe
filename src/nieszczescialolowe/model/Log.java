@@ -2,6 +2,8 @@ package nieszczescialolowe.model;
 
 import javax.swing.JTextArea;
 
+import nieszczescialolowe.view.Window;
+
 /**
  * @author Patryk
  *
@@ -38,61 +40,63 @@ public class Log {
 	}
 	
 	/**
-	 * Pokazuje wiadomosc w oknie loga, co int chars znakow robi line break
-	 * 
-	 * @param msg String
-	 */
-	public static void log(String msg) {
-		log(msg, true);
-	}
-	
-	/**
-	 * Pokazuje wiadomosc w oknie loga, co int chars znakow robi line break
+	 * Pokazuje wiadomosc w oknie loga, automatycznie rozdziela zbiory slow
+	 * na kilka linii jesli jest to konieczne, jak narazie nie dziala z
+	 * za duzymi na konsole slowami.
 	 * 
 	 * @param toReturn String
-	 * @param space boolean, oznacza czy po line breaku maja byc spacje
 	 */
-	public static void log(String full, boolean space) {
-		final int chars = 60;
-		String text = Log.mode == 0 ? txt.getText() : "";
-		String line = space ? "\n     " : "\n";
+	public static void log(String full) {
+		final int maxLength = 396;
 		String toReturn = "";
-		
-		// jesli wiadomosc jest za dluga rozdzielam ja
-		while (full.length() > 0) {
-			int total = full.length() < chars ? full.length() : chars;
-			String tmp = full.substring(0,total);
-			
-			if (tmp.contains("\n")) {
-				int lineB = tmp.indexOf("\n");
-				tmp = tmp.substring(0, lineB);
-				full = full.substring(lineB + 1);
+		String[] split = full.split(" ");
+		String tmp = "";
+				
+		for (String str : split) {
+			if (tmp.equals("")) {
+				tmp = str;
 			} else {
-				full = full.substring(total);
+				String[] lineBreaks = str.split("\n");
+				
+				if (lineBreaks.length > 1) {
+					int l = lineBreaks.length;
+					for (int i = 0; i < l; i++) {
+						if (i + 1 == l) {
+							tmp += lineBreaks[i];
+						} else {
+							toReturn += new StringBuilder()
+									.append(tmp)
+									.append(" ")
+									.append(lineBreaks[i])
+									.append("\n");
+							tmp = "";
+						}						
+					}
+				} else {
+					if (Window.testMetrics(tmp + str) >= maxLength) {
+						toReturn += tmp + "\n";
+						tmp = str;
+					} else {
+						tmp += " " + str;
+					}
+				}
 			}
-			
-			toReturn += addBreakContent(toReturn, tmp, line);
 		}
-		toReturn += full;
+		
+		toReturn += !tmp.equals("") ? tmp : "";
 		
 		// jesli jestem teraz w modzie test, zapisuje rezultat do logowania
 		if (Log.mode == 1) {
 			testResult = toReturn;
 			return;
 		}
+		
 		// jesli log nie jest pusty dodaje enter
-		if (text.equals("")) {
+		String currentTxt = Log.mode == 0 ? txt.getText() : " ";
+		if (currentTxt.equals("")) {
 			txt.setText(toReturn);
 		} else {
-			txt.setText(text + "\n\n" + toReturn);
-		}
-	}
-	
-	private static String addBreakContent(String msg, String tmp, String lineB) {
-		if (msg.equals("")) {
-			return tmp; 	
-		} else {
-			return lineB + tmp;
+			txt.setText(currentTxt + "\n\n" + toReturn);
 		}
 	}
 	
