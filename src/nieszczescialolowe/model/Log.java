@@ -15,6 +15,7 @@ public class Log {
 	// 0 = default, 1 = tests 
 	private static int mode = 0;
 	private static String testResult;
+	private static final int maxLength = 396;
 	
 	/**
 	 * Changes the mode at which the class is running.
@@ -47,7 +48,6 @@ public class Log {
 	 * @param toReturn String
 	 */
 	public static void log(String full) {
-		final int maxLength = 396;
 		String toReturn = "";
 		String[] split = full.split(" ");
 		String tmp = "";

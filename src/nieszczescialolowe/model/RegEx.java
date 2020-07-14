@@ -89,7 +89,7 @@ public class RegEx {
 	private static Function<Object, String> MOST_PLAYED_LANE_X_F = FUNCTIONS::mostPlayedLaneX;
 	
 	/**
-	 * tutaj dodajemy object Command jako key, y Consumer jako
+	 * tutaj dodajemy objekt Command jako key, y Function jako
 	 * value do hashtable'a.
 	 * funkcja static inicjalizuje sie sama
 	 */

@@ -17,4 +17,14 @@ public class TestRegExChamp {
 		assertEquals("Most played champion: Fizz ; with a percentage of 50.0%",
 				Tests.runCommand("most played champ 6"));
 	}
+	
+	@Test
+	public void averageStatsChamp() {
+		fail("Not yet implemented");
+	}
+	
+	@Test
+	public void averageStatsChampX() {
+		fail("Not yet implemented");
+	}
 }

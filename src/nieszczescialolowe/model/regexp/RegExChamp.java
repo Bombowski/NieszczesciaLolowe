@@ -61,6 +61,25 @@ public class RegExChamp {
 	}
 	
 	public String averageStatsChamp(Object x) {
+		try {
+			String[] split = x.toString().split(" ");
+			String champ = split[2];
+			
+			ArrayList<Game> games = fm.getTopXGames(-1);
+			ArrayList<Game> stats = new ArrayList<Game>();
+			
+			for (Game g : games) {
+				if (g.getChampion().equals(champ)) {
+					stats.add(g);
+				}
+			}
+			
+			// tutaj obliczyc wszystkie statu ze stats
+			
+		} catch(NumberFormatException | IOException e) {
+			Log.log(e.getMessage());
+		}
+		
 		return "Not implemented yet";
 	}
 	
