@@ -69,15 +69,19 @@ public class RegEx {
 	private static Function<Object, String> MOST_PLAYED_CHAMP_X_F = FUNCTIONS::mostPlayedChampX;
 	
 	private static final Command AVERAGE_STATS_CHAMP =
-			new Command("average champ X - Shows the average statistics of x champion", "^(average champ \\w+)$");
+			new Command("average stats champ X - Shows the average statistics of x champion", "^(average stats champ \\w+)$");
 	private static Function<Object, String> AVERAGE_STATS_CHAMP_F = FUNCTIONS::averageStats;
 	
+	private static final Command AVERAGE_STATS_CHAMP_X =
+			new Command("average stats champ X Y - Shows the average statistics of x champion from the last y games", "^(average stats champ \\w+ \\d+)$");
+	private static Function<Object, String> AVERAGE_STATS_CHAMP_X_F = FUNCTIONS::averageStatsX;
+	
 	private static final Command AVERAGE_STATS_LANE =
-			new Command("average lane X - shows average stats from x lane", "^(average lane \\w+)$");
+			new Command("average stats lane X - shows average stats from x lane", "^(average stats lane \\w+)$");
 	private static Function<Object, String> AVERAGE_STATS_LANE_F = FUNCTIONS::averageStatsLane;
 	
 	private static final Command AVERAGE_STATS_LANE_X =
-			new Command("average lane X Y - shows average stats in x lane from last y games", "^(average lane \\w+ \\d+)$");
+			new Command("average stats lane X Y - shows average stats in x lane from last y games", "^(average stats lane \\w+ \\d+)$");
 	private static Function<Object, String> AVERAGE_STATS_LANE_X_F = FUNCTIONS::averageStatsLaneX;
 	
 	private static final Command MOST_PLAYED_LANE =
@@ -102,6 +106,7 @@ public class RegEx {
 		COMMANDS.put(MOST_PLAYED_CHAMP, MOST_PLAYED_CHAMP_F);
 		COMMANDS.put(MOST_PLAYED_CHAMP_X, MOST_PLAYED_CHAMP_X_F);
 		COMMANDS.put(AVERAGE_STATS_CHAMP, AVERAGE_STATS_CHAMP_F);
+		COMMANDS.put(AVERAGE_STATS_CHAMP_X, AVERAGE_STATS_CHAMP_X_F);
 		COMMANDS.put(AVERAGE_STATS_LANE, AVERAGE_STATS_LANE_F);
 		COMMANDS.put(AVERAGE_STATS_LANE_X, AVERAGE_STATS_LANE_X_F);
 		COMMANDS.put(MOST_PLAYED_LANE, MOST_PLAYED_LANE_F);

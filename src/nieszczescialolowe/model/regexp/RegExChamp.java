@@ -61,11 +61,16 @@ public class RegExChamp {
 	}
 	
 	public String averageStatsChamp(Object x) {
+		return averageStatsChampX(x.toString().concat(" -1"));
+	}
+	
+	public String averageStatsChampX(Object x) {
 		try {
 			String[] split = x.toString().split(" ");
-			String champ = split[2];
+			String champ = split[3];
+			int noGames = Integer.parseInt(split[4]);
 			
-			ArrayList<Game> games = fm.getTopXGames(-1);
+			ArrayList<Game> games = fm.getTopXGames(noGames);
 			ArrayList<Game> stats = new ArrayList<Game>();
 			
 			for (Game g : games) {
@@ -74,16 +79,12 @@ public class RegExChamp {
 				}
 			}
 			
-			// tutaj obliczyc wszystkie statu ze stats
+			// tutaj obliczyc wszystkie staty ze stats
 			
 		} catch(NumberFormatException | IOException e) {
 			Log.log(e.getMessage());
 		}
 		
-		return "Not implemented yet";
-	}
-	
-	public String averageStatsChampX(Object x) {
 		return "Not implemented yet";
 	}
 }
