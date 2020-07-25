@@ -70,7 +70,11 @@ public class RegExChamp {
 			String champ = split[3];
 			int noGames = Integer.parseInt(split[4]);
 			
-			ArrayList<Game> games = fm.getTopXGames(noGames);
+			if(noGames == 0) {
+				return "Okay, you get 0 games :)";
+			}
+			
+			ArrayList<Game> games = fm.getTopXGames(-1);
 			ArrayList<Game> stats = new ArrayList<Game>();
 			
 			for (Game g : games) {
@@ -79,12 +83,47 @@ public class RegExChamp {
 				}
 			}
 			
-			// tutaj obliczyc wszystkie staty ze stats
+			if (noGames > 0) {
+				int removeSize = stats.size() - noGames;
+				for (int i = 0; i < removeSize; i++) {
+					stats.remove(0);
+				}
+			}
 			
+			// obliczamy staty z wybranej ilosci ostatnich gier
+			int k = 0;
+			int d = 0;
+			int a = 0;
+			int c = 0;
+			int win = 0;
+			
+			for (Game s : stats) {
+				k = k + s.getKdaCss().getKill();
+				d = d + s.getKdaCss().getDead();
+				a = a + s.getKdaCss().getAssist();
+				c = c + s.getKdaCss().getCSs();
+				if (s.getWinLose() == "W") {
+					win++;
+				}
+			}
+			
+			return new StringBuilder()
+					.append("Average kda: ")
+					.append(k/noGames)
+					.append("/")
+					.append(d/noGames)
+					.append("/")
+					.append(a/noGames)
+					.append('\n')
+					.append("Average Cs: ")
+					.append(c/noGames)
+					.append('\n')
+					.append("Win ratio: ")
+					.append(ref.getPercent(win, noGames))
+					.append("%")
+					.toString();
 		} catch(NumberFormatException | IOException e) {
-			Log.log(e.getMessage());
+			return e.getMessage();
 		}
-		
-		return "Not implemented yet";
 	}
 }
