@@ -30,12 +30,12 @@ public class Commands {
 		return other.listLastX(x);
 	}
 	
-	public String averageStatsX(Object x) {
+	public String averageGameX(Object x) {
 		return other.averageGameX(x);
 	}
 	
-	public String averageStats(Object x) {
-		return other.averageStats(x);
+	public String averageGame(Object x) {
+		return other.averageGame(x);
 	}
 	
 	public String mostPlayedChamp(Object x) {

@@ -91,6 +91,8 @@ public class RegExChamp {
 				}
 			}
 			
+			noGames = stats.size();
+			
 			// obliczamy staty z wybranej ilosci ostatnich gier
 			KdaCss kda = new KdaCss(0,0,0,0);
 			String time = "0:0:0";
@@ -101,12 +103,13 @@ public class RegExChamp {
 			HashMap<String, Integer> grade = new HashMap<String, Integer>();
 			
 			for (Game s : stats) {
-				kda.setKill(kda.getKill() + s.getKdaCss().getKill());
-				kda.setDead(kda.getDead() + s.getKdaCss().getDead());
-				kda.setAssist(kda.getAssist() + s.getKdaCss().getAssist());
-				kda.setCss(kda.getCSs() + s.getKdaCss().getCSs());
+				KdaCss tmp = s.getKdaCss();
+				kda.setKill(kda.getKill() + tmp.getKill());
+				kda.setDead(kda.getDead() + tmp.getDead());
+				kda.setAssist(kda.getAssist() + tmp.getAssist());
+				kda.setCss(kda.getCSs() + tmp.getCSs());
 				
-				if (s.getWinLose() == "W") {
+				if (s.getWinLose().equals("W")) {
 					win++;
 				}
 				
@@ -117,8 +120,8 @@ public class RegExChamp {
 				lane.put(s.getLane(), ref.add2HashTable(lane, s.getLane()));
 			}
 			
-			Stats n = new Stats(0);
-			n.setAfks(ref.getPercent(afks, noGames));
+			Stats n = new Stats();
+			n.setAfks(Math.round((float)afks / (float)noGames * 100f) / 100f);
 			n.setGrade(ref.getMax(grade));
 			n.setGradePercent(ref.getPercent(grade.get(ref.getMax(grade)), noGames));
 			n.setKdaCss(ref.avgKdaCss(kda, noGames));

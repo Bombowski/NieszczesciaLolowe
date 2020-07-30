@@ -51,12 +51,12 @@ public class RegEx {
 	// done
 	private static final Command AVERAGE_GAME_X =
 			new Command("average game X - Shows the average statistics from last X games", "^(average game \\d+)$");
-	private static Function<Object, String> AVERAGE_STATS_X_F = FUNCTIONS::averageStatsX;
+	private static Function<Object, String> AVERAGE_STATS_X_F = FUNCTIONS::averageGameX;
 	
 	// done
 	private static final Command AVERAGE_GAME =
 			new Command("average game - Shows the average statistics from all games", "^(average game)$");
-	private static Function<Object, String> AVERAGE_STATS_F = FUNCTIONS::averageStats;
+	private static Function<Object, String> AVERAGE_STATS_F = FUNCTIONS::averageGame;
 	
 	// done
 	private static final Command MOST_PLAYED_CHAMP =
@@ -70,11 +70,11 @@ public class RegEx {
 	
 	private static final Command AVERAGE_STATS_CHAMP =
 			new Command("average stats champ X - Shows the average statistics of x champion", "^(average stats champ \\w+)$");
-	private static Function<Object, String> AVERAGE_STATS_CHAMP_F = FUNCTIONS::averageStats;
+	private static Function<Object, String> AVERAGE_STATS_CHAMP_F = FUNCTIONS::averageStatsChamp;
 	
 	private static final Command AVERAGE_STATS_CHAMP_X =
 			new Command("average stats champ X Y - Shows the average statistics of x champion from the last y games", "^(average stats champ \\w+ \\d+)$");
-	private static Function<Object, String> AVERAGE_STATS_CHAMP_X_F = FUNCTIONS::averageStatsX;
+	private static Function<Object, String> AVERAGE_STATS_CHAMP_X_F = FUNCTIONS::averageStatsChampX;
 	
 	private static final Command AVERAGE_STATS_LANE =
 			new Command("average stats lane X - shows average stats from x lane", "^(average stats lane \\w+)$");

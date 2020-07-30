@@ -34,22 +34,8 @@ public class Stats {
 		this.afks = afks;
 	}
 	
-	public Stats(int zero) {
-		String none = "none";
-		this.kdaCss = new KdaCss();
-		this.champion = none;
-		this.championPercent = 0;
-		this.lane = none;
-		this.lanePercent = 0;
-		this.winLosePercent = 0;
-		this.time = none;
-		this.grade = none;
-		this.gradePercent = 0;
-		this.afks = 0;
-	}
-
 	public Stats() {
-		super();
+		this.kdaCss = new KdaCss();
 	}
 
 	@Override
@@ -58,14 +44,31 @@ public class Stats {
 				.append("Average KDACss - ")
 				.append(kdaCss.toString())
 				.append("\n")
-				.append(champion == "none" ? "" : "Most played champion - " + champion + "\n" + "Most played champion pickrate - " + championPercent + "\n")
-				.append(lane == "none" ? "" : "Most played lane - " + lane + "\n" + "Most played lane % - " + lanePercent + "\n")
-				.append("Win ratio - ")
+				.append(champion == null ? "" : 
+					new StringBuilder()
+					.append("Most played champion - ")
+					.append(champion)
+					.append("\nMost played champion pickrate - ")
+					.append(championPercent)
+					.append("\n")
+					.toString())
+				.append(lane == null ? "" : 
+					new StringBuilder()
+					.append("Most played lane - ")
+					.append(lane)
+					.append("\nMost played lane % - ")
+					.append(lanePercent)
+					.append("\n")
+					.toString())
+				.append("Win ratio % - ")
 				.append(winLosePercent)
-				.append("\n")
-				.append(time == "none" ? "" : "Average game time - " + time + "\n")
-				.append(grade == "none" ? "" : "Most often grade - " + grade + "\n" + "Most often grade % - " + gradePercent + "\n")
-				.append("Average afk's - ")
+				.append("\nAverage game time - ")
+				.append(time)
+				.append("\nMost often grade - ")
+				.append(grade)
+				.append("\nMost often grade % - ")
+				.append(gradePercent)
+				.append("\nAverage afk's - ")
 				.append(afks)
 				.toString();
 	}
