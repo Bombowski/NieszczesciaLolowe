@@ -10,6 +10,7 @@ import nieszczescialolowe.model.file.FileManaging;
 public class RegExLane {
 
 	private FileManaging fm;
+	private RegExFunctions ref;
 	
 	public RegExLane(FileManaging fm) {
 		this.fm = fm;

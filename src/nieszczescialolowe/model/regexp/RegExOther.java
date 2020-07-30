@@ -116,7 +116,7 @@ public class RegExOther {
 		}
 	}
 	
-	public String averageStats(Object x) {
+	public String averageGame(Object x) {
 		return averageGameX(x.toString() + " -1");
 	}
 }

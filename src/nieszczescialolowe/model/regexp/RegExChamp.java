@@ -4,9 +4,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import nieszczescialolowe.model.Log;
 import nieszczescialolowe.model.file.FileManaging;
 import nieszczescialolowe.model.pojo.Game;
+import nieszczescialolowe.model.pojo.KdaCss;
+import nieszczescialolowe.model.pojo.Stats;
 
 /**
  * @author Patryk
@@ -61,7 +62,7 @@ public class RegExChamp {
 	}
 	
 	public String averageStatsChamp(Object x) {
-		return averageStatsChampX(x.toString().concat(" -1"));
+		return averageStatsChampX(x.toString() + " -1");
 	}
 	
 	public String averageStatsChampX(Object x) {
@@ -90,38 +91,46 @@ public class RegExChamp {
 				}
 			}
 			
+			noGames = stats.size();
+			
 			// obliczamy staty z wybranej ilosci ostatnich gier
-			int k = 0;
-			int d = 0;
-			int a = 0;
-			int c = 0;
+			KdaCss kda = new KdaCss(0,0,0,0);
+			String time = "0:0:0";
 			int win = 0;
+			int afks = 0;
+			
+			HashMap<String, Integer> lane = new HashMap<String, Integer>();
+			HashMap<String, Integer> grade = new HashMap<String, Integer>();
 			
 			for (Game s : stats) {
-				k = k + s.getKdaCss().getKill();
-				d = d + s.getKdaCss().getDead();
-				a = a + s.getKdaCss().getAssist();
-				c = c + s.getKdaCss().getCSs();
-				if (s.getWinLose() == "W") {
+				KdaCss tmp = s.getKdaCss();
+				kda.setKill(kda.getKill() + tmp.getKill());
+				kda.setDead(kda.getDead() + tmp.getDead());
+				kda.setAssist(kda.getAssist() + tmp.getAssist());
+				kda.setCss(kda.getCSs() + tmp.getCSs());
+				
+				if (s.getWinLose().equals("W")) {
 					win++;
 				}
+				
+				afks += s.getAfks();
+				time = ref.addTime(s.getTime(), time);
+				
+				grade.put(s.getGrade(), ref.add2HashTable(grade, s.getGrade()));
+				lane.put(s.getLane(), ref.add2HashTable(lane, s.getLane()));
 			}
 			
-			return new StringBuilder()
-					.append("Average kda: ")
-					.append(k/noGames)
-					.append("/")
-					.append(d/noGames)
-					.append("/")
-					.append(a/noGames)
-					.append('\n')
-					.append("Average Cs: ")
-					.append(c/noGames)
-					.append('\n')
-					.append("Win ratio: ")
-					.append(ref.getPercent(win, noGames))
-					.append("%")
-					.toString();
+			Stats n = new Stats();
+			n.setAfks(Math.round((float)afks / (float)noGames * 100f) / 100f);
+			n.setGrade(ref.getMax(grade));
+			n.setGradePercent(ref.getPercent(grade.get(ref.getMax(grade)), noGames));
+			n.setKdaCss(ref.avgKdaCss(kda, noGames));
+			n.setLane(ref.getMax(lane));
+			n.setLanePercent(ref.getPercent(lane.get(ref.getMax(lane)), noGames));
+			n.setTime(ref.avgTime(time, noGames));
+			n.setWinLosePercent(ref.getPercent(win, noGames));
+			
+			return n.toString();
 		} catch(NumberFormatException | IOException e) {
 			return e.getMessage();
 		}
