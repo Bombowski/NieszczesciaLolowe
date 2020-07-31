@@ -47,6 +47,10 @@ public class RegExLane {
 				}
 			}
 			
+			if (stats.size() == 0) {
+				return "No games with selected lane found";
+			}
+			
 			// Usuwamy nadmiar gier od najstarszych
 			if (noGames > 0) {
 				int removeSize = stats.size() - noGames;
@@ -107,14 +111,20 @@ public class RegExLane {
 	
 	public String mostPlayedLaneX(Object x) {
 		try {
-			// Zdobywam ilosc gier i liste gier
+			// Zdobywam ilosc gier
 			int noGames = Integer.parseInt(x.toString().split(" ")[3]);
+			
+			if (noGames == 0) {
+				return "Ehm you selected 0 games...";
+			}
+			
+			// Zdobywam liste gier
 			ArrayList<Game> games = fm.getTopXGames(noGames);
 			noGames = games.size();
 			
 			// Specjalna wiadomosc dla smieszkow
 			if(noGames == 0) {
-				return "Ehm you selected 0 games...";
+				return "No games found";
 			}
 			
 			// Zapisuje linie w hashmapie

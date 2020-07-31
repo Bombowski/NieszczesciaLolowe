@@ -32,13 +32,17 @@ public class RegExChamp {
 		try {
 			// zdobywam wybrana ilosc gier, -1 = wszystkie
 			int selectedNoGames = Integer.parseInt(x.toString().split(" ")[3]);
+			
+			if (selectedNoGames == 0) {
+				return "Ehm you selected 0 games...";
+			}
+			
 			// zdobywam liste gier
 			ArrayList<Game> games = fm.getTopXGames(selectedNoGames);
 			selectedNoGames = games.size();
 			
-			// robie hihihi wiadomosc jesli wybrano 0
 			if (selectedNoGames == 0) {
-				return "Ehm you selected 0 games...";
+				return "No games found";
 			}
 			
 			HashMap<String, Integer> champs = new HashMap<String, Integer>();
@@ -72,7 +76,7 @@ public class RegExChamp {
 			String champ = split[3];
 			int noGames = Integer.parseInt(split[4]);
 			
-			if(noGames == 0) {
+			if (noGames == 0) {
 				return "Ehm you selected 0 games...";
 			}
 			
@@ -83,6 +87,10 @@ public class RegExChamp {
 				if (g.getChampion().equals(champ)) {
 					stats.add(g);
 				}
+			}
+			
+			if (stats.size() == 0) {
+				return "No games with selected champion found";
 			}
 			
 			// Usuwamy nadmiar gier od najstarszych
