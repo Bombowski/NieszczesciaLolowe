@@ -28,21 +28,21 @@ public class RegExFunctions {
 	protected String avgTime(String time, int size) {
 		String[] split = time.split(":");
 		
-		int seconds = (Integer.parseInt(split[2]) + (Integer.parseInt(split[1]) * 60) + 
-				(Integer.parseInt(split[0]) * 60 * 60)) / size;
+		float seconds = (Integer.parseInt(split[2]) + (Integer.parseInt(split[1]) * 60) + 
+				(Integer.parseInt(split[0]) * 60 * 60)) / (float)size;
 		
-		split[0] = (seconds / 3600) + "";
-		split[1] = (seconds / 60 % 60) + "";
-		split[2] = (seconds % 60) + "";
+		split[0] = ((int)seconds / 3600) + "";
+		split[1] = ((int)seconds / 60 % 60) + "";
+		split[2] = (Math.round(seconds % 60f)) + "";
 		
 		return splitTime2Str(split);
 	}
 
 	protected KdaCss avgKdaCss(KdaCss kdac, int size) {
-		kdac.setKill(kdac.getKill() / size);
-		kdac.setDead(kdac.getDead() / size);
-		kdac.setAssist(kdac.getAssist() / size);
-		kdac.setCss(kdac.getCSs() / size);
+		kdac.setKill(Math.round((float)kdac.getKill() / size));
+		kdac.setDead(Math.round((float)kdac.getDead() / size));
+		kdac.setAssist(Math.round((float)kdac.getAssist() / size));
+		kdac.setCss(Math.round((float)kdac.getCSs() / size));
 		
 		return kdac;
 	}
