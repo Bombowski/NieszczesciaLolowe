@@ -34,7 +34,7 @@ public class RegExChamp {
 			int selectedNoGames = Integer.parseInt(x.toString().split(" ")[3]);
 			// zdobywam liste gier
 			ArrayList<Game> games = fm.getTopXGames(selectedNoGames);
-			selectedNoGames = selectedNoGames < 0 ? games.size() : selectedNoGames;
+			selectedNoGames = games.size();
 			
 			// robie hihihi wiadomosc jesli wybrano 0
 			if (selectedNoGames == 0) {
@@ -44,7 +44,8 @@ public class RegExChamp {
 			HashMap<String, Integer> champs = new HashMap<String, Integer>();
 			
 			for (Game game : games) {
-				champs.put(game.getChampion(), ref.add2HashTable(champs, game.getChampion()));
+				String g = game.getChampion();
+				champs.put(g, ref.add2HashTable(champs, g));
 			}
 			
 			// wybieram najczesciej granego champa i printuje
@@ -72,7 +73,7 @@ public class RegExChamp {
 			int noGames = Integer.parseInt(split[4]);
 			
 			if(noGames == 0) {
-				return "Okay, you get 0 games :)";
+				return "Ehm you selected 0 games...";
 			}
 			
 			ArrayList<Game> games = fm.getTopXGames(-1);
@@ -84,6 +85,7 @@ public class RegExChamp {
 				}
 			}
 			
+			// Usuwamy nadmiar gier od najstarszych
 			if (noGames > 0) {
 				int removeSize = stats.size() - noGames;
 				for (int i = 0; i < removeSize; i++) {
@@ -120,6 +122,7 @@ public class RegExChamp {
 				lane.put(s.getLane(), ref.add2HashTable(lane, s.getLane()));
 			}
 			
+			// Setuje all staty w objekcie stats i printuje
 			Stats n = new Stats();
 			n.setAfks(Math.round((float)afks / (float)noGames * 100f) / 100f);
 			n.setGrade(ref.getMax(grade));
