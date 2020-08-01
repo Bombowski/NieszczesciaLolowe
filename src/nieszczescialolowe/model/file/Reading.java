@@ -43,7 +43,7 @@ public class Reading {
 			}
 			
 		} catch (IOException e) {
-			Log.log(e.getMessage());
+			Log.logError(e.getStackTrace(), e.getLocalizedMessage());
 		} finally {
 			reader.close();
 		}
@@ -72,7 +72,7 @@ public class Reading {
 			}
 			
 		} catch (IOException e) {
-			Log.log(e.getMessage());
+			Log.logError(e.getStackTrace(), e.getLocalizedMessage());
 		} finally {
 			reader.close();
 		}
@@ -124,11 +124,8 @@ public class Reading {
 				list.add(newGame);
 				i++;
 			}
-			
-		} catch (IOException e) {
-			Log.log(e.getMessage());
 		} catch (Exception e) {
-			Log.log(e.getMessage());
+			Log.logError(e.getStackTrace(), e.getLocalizedMessage());
 		}		
 		
 		return list;

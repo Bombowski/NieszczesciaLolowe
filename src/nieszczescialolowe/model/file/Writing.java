@@ -43,7 +43,7 @@ public class Writing {
 			writer.write(formatter.format(new Date()) + "," + stats.stringToCsv() + '\n');
 			
 		} catch(IOException e){
-			Log.log(e.getMessage());
+			Log.logError(e.getStackTrace(), e.getLocalizedMessage());
 		} finally {
 			if (writer != null) writer.close();
 		}
@@ -72,7 +72,7 @@ public class Writing {
 			return true;
 			
 		} catch(IOException e) {
-			Log.log(e.getMessage());
+			Log.logError(e.getStackTrace(), e.getLocalizedMessage());
 		} finally {
 			if (writer != null) writer.close();	
 		}
@@ -88,7 +88,7 @@ public class Writing {
 			writer.write(BasicCheck.HEADERchamps + '\n' + '\n' + '\n' + BasicCheck.HEADERgames + '\n' + BasicCheck.HEADERstats + '\n');
 			
 		} catch(IOException e) {
-			Log.log(e.getMessage());
+			Log.logError(e.getStackTrace(), e.getLocalizedMessage());
 		} finally {
 			if (writer != null) writer.close();
 		}
@@ -114,7 +114,7 @@ public class Writing {
 				out.write(line + "\n");
 			}
 		} catch (IOException e) {
-			Log.log(e.getMessage());
+			Log.logError(e.getStackTrace(), e.getLocalizedMessage());
 		} finally {
 			if (out != null) {
 				out.close();
@@ -143,7 +143,7 @@ public class Writing {
 			
 			out.close();
 		} catch (IOException e) {
-			Log.log(e.getMessage());
+			Log.logError(e.getStackTrace(), e.getLocalizedMessage());
 		} finally {
 			if (out != null) {
 				out.close();

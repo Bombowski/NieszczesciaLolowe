@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
+import nieszczescialolowe.model.Log;
 import nieszczescialolowe.model.RegEx;
 import nieszczescialolowe.model.file.FileManaging;
 import nieszczescialolowe.model.pojo.Command;
@@ -57,7 +58,8 @@ public class RegExOther {
 			
 			return sb.toString();
 		} catch (NumberFormatException | IOException nfe) {
-			return nfe.getMessage();
+			Log.logError(nfe.getStackTrace(), nfe.getLocalizedMessage());
+			return "";
 		}
 	}
 	
@@ -112,7 +114,8 @@ public class RegExOther {
 
 			return s.toString();
 		} catch (NumberFormatException | IOException nfe) {
-			return nfe.getMessage();
+			Log.logError(nfe.getStackTrace(), nfe.getLocalizedMessage());
+			return "";
 		}
 	}
 	

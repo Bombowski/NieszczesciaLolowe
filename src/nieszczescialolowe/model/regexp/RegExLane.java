@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import nieszczescialolowe.model.Log;
 import nieszczescialolowe.model.file.FileManaging;
 import nieszczescialolowe.model.pojo.Game;
 import nieszczescialolowe.model.pojo.KdaCss;
@@ -101,7 +102,8 @@ public class RegExLane {
 			
 			return n.toString();
 		} catch (IOException | NumberFormatException e) {
-			return e.getMessage();
+			Log.logError(e.getStackTrace(), e.getLocalizedMessage());
+			return "";
 		}
 	}
 	
@@ -144,7 +146,8 @@ public class RegExLane {
 					.append("%")
 					.toString();
 		} catch (IOException | NumberFormatException e) {
-			return e.getMessage();
+			Log.logError(e.getStackTrace(), e.getLocalizedMessage());
+			return "";
 		}
 	}
 }

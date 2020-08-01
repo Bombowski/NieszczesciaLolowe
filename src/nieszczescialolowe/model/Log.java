@@ -41,13 +41,13 @@ public class Log {
 	}
 	
 	/**
-	 * Pokazuje wiadomosc w oknie loga, automatycznie rozdziela zbiory slow
-	 * na kilka linii jesli jest to konieczne, jak narazie nie dziala z
-	 * za duzymi na konsole slowami.
+	 * Formatuje podanego stringa tak zeby sie miescil w szerokosci
+	 * konsoli
 	 * 
-	 * @param toReturn String
+	 * @param full String
+	 * @return String
 	 */
-	public static void log(String full) {
+	private static String formatText(String full) {
 		String toReturn = "";
 		String[] split = full.split(" ");
 		String tmp = "";
@@ -84,6 +84,18 @@ public class Log {
 		}
 		
 		toReturn += !tmp.equals("") ? tmp : "";
+		return toReturn;
+	}
+	
+	/**
+	 * Pokazuje wiadomosc w oknie loga, automatycznie rozdziela zbiory slow
+	 * na kilka linii jesli jest to konieczne, jak narazie nie dziala z
+	 * za duzymi na konsole slowami.
+	 * 
+	 * @param toReturn String
+	 */
+	public static void log(String full) {
+		String toReturn = formatText(full);
 		
 		// jesli jestem teraz w modzie test, zapisuje rezultat do logowania
 		if (Log.mode == 1) {
@@ -91,13 +103,43 @@ public class Log {
 			return;
 		}
 		
+		add2Log(toReturn);
+	}
+	
+	/**
+	 * Pokazuje w konsoli zformatowany error
+	 * 
+	 * @param stackTrace StackTraceElement[]
+	 * @param cause localized message errora
+	 */
+	public static void logError(StackTraceElement[] stackTrace, String cause) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("There has been an unexpected error - ")
+			.append(stackTrace[0].getClassName())
+			.append(" ")
+			.append(cause)
+			.append("\n");
+		
+		for (StackTraceElement ste : stackTrace) {
+			sb.append(ste.getFileName())
+				.append(" - ")
+				.append(ste.getMethodName())
+				.append(" at line [")
+				.append(ste.getLineNumber())
+				.append("]\n");
+		}
+		add2Log(formatText(sb.toString()));
+	}
+	
+	private static void add2Log(String message) {
 		// jesli log nie jest pusty dodaje enter
 		String currentTxt = Log.mode == 0 ? txt.getText() : " ";
-		if (currentTxt.equals("")) {
-			txt.setText(toReturn);
-		} else {
-			txt.setText(currentTxt + "\n\n" + toReturn);
-		}
+		txt.setText(currentTxt.equals("") ? message : 
+			new StringBuilder()
+				.append(currentTxt)
+				.append("\n\n")
+				.append(message)
+				.toString());
 	}
 	
 	/**

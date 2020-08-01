@@ -38,7 +38,7 @@ public class Main implements ActionListener {
 			ArrayList<String> champs = fm.getChampionList();
 	        window.setCmbChamps(champs);
 		} catch (IOException e) {
-			Log.log(e.getMessage());
+			Log.logError(e.getStackTrace(), e.getLocalizedMessage());
 		}
     	
         // dodaje action listenery
@@ -75,8 +75,8 @@ public class Main implements ActionListener {
 		        case "Delete champion":
 		        	delChamp();
 	        }
-        } catch (IOException ie) {
-        	Log.log(ie.getMessage());
+        } catch (Exception ie) {
+        	Log.logError(ie.getStackTrace(), ie.getLocalizedMessage());
         }
     }
     

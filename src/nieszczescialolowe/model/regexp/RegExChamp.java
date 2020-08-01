@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import nieszczescialolowe.model.Log;
 import nieszczescialolowe.model.file.FileManaging;
 import nieszczescialolowe.model.pojo.Game;
 import nieszczescialolowe.model.pojo.KdaCss;
@@ -62,7 +63,8 @@ public class RegExChamp {
 					.append("%")
 					.toString();
 		} catch (IOException | NumberFormatException e) {
-			return e.getMessage();
+			Log.logError(e.getStackTrace(), e.getLocalizedMessage());
+			return "";
 		}
 	}
 	
@@ -143,7 +145,8 @@ public class RegExChamp {
 			
 			return n.toString();
 		} catch(NumberFormatException | IOException e) {
-			return e.getMessage();
+			Log.logError(e.getStackTrace(), e.getLocalizedMessage());
+			return "";
 		}
 	}
 }
