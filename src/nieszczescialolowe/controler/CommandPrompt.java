@@ -16,6 +16,11 @@ import nieszczescialolowe.model.pojo.Command;
 import nieszczescialolowe.model.regexp.Commands;
 import nieszczescialolowe.view.Window;
 
+/**
+ * @author Patryk
+ *
+ * Kontroler zajmujacy sie ewentami z inputu textu z konsoli
+ */
 public class CommandPrompt implements KeyListener {
 
 	private JTextField txt;
@@ -46,6 +51,10 @@ public class CommandPrompt implements KeyListener {
 	private void getFunctionFromCommand() {
 		String command = txt.getText();
 		
+		if (command.equals("")) {
+			return;
+		}
+		
 		Log.log(new StringBuilder()
 				.append(">")
 				.append(getCurrentTime())
@@ -71,12 +80,16 @@ public class CommandPrompt implements KeyListener {
 	
 	private String getCurrentTime() {
 		cal = Calendar.getInstance();
+		int s = cal.get(Calendar.SECOND);
+		int m = cal.get(Calendar.MINUTE);
+		int h = cal.get(Calendar.HOUR_OF_DAY);
+		
 		return new StringBuilder()
-				.append(cal.get(Calendar.HOUR_OF_DAY))
+				.append(h < 10 ? "0" + h : h)
 				.append(":")
-				.append(cal.get(Calendar.MINUTE))
+				.append(m < 10 ? "0" + m : m)
 				.append(":")
-				.append(cal.get(Calendar.SECOND))
+				.append(s < 10 ? "0" + s : s)
 				.toString();
 	}
 }

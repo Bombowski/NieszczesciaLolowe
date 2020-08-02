@@ -15,7 +15,7 @@ import nieszczescialolowe.model.pojo.Game;
 import nieszczescialolowe.view.Window;
 
 /**
- * Controller zadzi i decyduje co z czym i kiedy robic
+ * Glowny controller, zajmuje sie ewentami wszystkich guzikow
  *
  * @author Patryk
  */
@@ -38,7 +38,9 @@ public class Main implements ActionListener {
 			ArrayList<String> champs = fm.getChampionList();
 	        window.setCmbChamps(champs);
 		} catch (IOException e) {
-			Log.logError(e.getStackTrace(), e.getLocalizedMessage());
+			// tutaj textarea nie jest jeszcze zinicjalizowany
+			window.showError("There was an error while reading your file.");
+			System.exit(0);
 		}
     	
         // dodaje action listenery
@@ -52,7 +54,7 @@ public class Main implements ActionListener {
     }
 
     /**
-     * Action listener trigerowany przez oba guziki z JFrame'a
+     * Action listener trigerowany przez guziki z JFrame'a
      */
     @Override
     public void actionPerformed(ActionEvent e) {

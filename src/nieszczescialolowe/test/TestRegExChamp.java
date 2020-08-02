@@ -29,7 +29,7 @@ public class TestRegExChamp {
 					.append("Average game time - 0:46:29\n")
 					.append("Most often grade - S\n")
 					.append("Most often grade % - 54.55\n")
-					.append("Average afk's - 0.0\n")
+					.append("Average afk's - 0.0")
 					.toString(),
 				Tests.runCommand("average stats champ Fizz"));
 	}
@@ -45,7 +45,7 @@ public class TestRegExChamp {
 					.append("Average game time - 0:37:05\n")
 					.append("Most often grade - A\n")
 					.append("Most often grade % - 33.33\n")
-					.append("Average afk's - 2.0\n")
+					.append("Average afk's - 2.0")
 					.toString(),
 				Tests.runCommand("average stats champ Pantheon 3"));
 	}

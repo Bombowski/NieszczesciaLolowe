@@ -31,9 +31,12 @@ public class RegExFunctions {
 		float seconds = (Integer.parseInt(split[2]) + (Integer.parseInt(split[1]) * 60) + 
 				(Integer.parseInt(split[0]) * 60 * 60)) / (float)size;
 		
+		int min = ((int)seconds / 60 % 60);
+		int sec = (Math.round(seconds % 60f));
+		
+		split[2] = sec < 10 ? "0" + sec : "" + sec;
+		split[1] = min < 10 ? "0" + min : "" + min;
 		split[0] = ((int)seconds / 3600) + "";
-		split[1] = ((int)seconds / 60 % 60) + "";
-		split[2] = (Math.round(seconds % 60f)) + "";
 		
 		return splitTime2Str(split);
 	}

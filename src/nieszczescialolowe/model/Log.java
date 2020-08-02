@@ -74,7 +74,7 @@ public class Log {
 					}
 				} else {
 					if (Window.testMetrics(tmp + str) >= maxLength) {
-						toReturn += tmp + "\n";
+						toReturn += tmp + " \n";
 						tmp = str;
 					} else {
 						tmp += " " + str;
